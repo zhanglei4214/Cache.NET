@@ -1,8 +1,8 @@
-﻿namespace NCache.Schedulers
+﻿namespace SharpCache.Schedulers
 {
     #region Using Directives
     using System;
-    using NCache.Interfaces;
+    using SharpCache.Interfaces;
     #endregion
 
     internal sealed class SchedulerFactory

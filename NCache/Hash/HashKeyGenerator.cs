@@ -1,4 +1,4 @@
-﻿namespace NCache.Hash
+﻿namespace SharpCache.Hash
 {
     #region using namespace
     #endregion

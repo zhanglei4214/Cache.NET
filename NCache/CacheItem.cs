@@ -1,10 +1,10 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Directives
     using System;
     using System.Collections.Generic;
-    using NCache.EventArguments;
-    using NCache.Interfaces;
+    using SharpCache.EventArguments;
+    using SharpCache.Interfaces;
     #endregion
 
     public class CacheItem

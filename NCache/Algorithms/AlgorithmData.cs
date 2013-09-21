@@ -1,9 +1,9 @@
-﻿namespace NCache.Algorithms
+﻿namespace SharpCache.Algorithms
 {
     #region Using Directives
     using System.Collections.Generic;
-    using NCache.Common.DataStructures;
-    using NCache.Common.Interfaces;
+    using SharpCache.Common.DataStructures;
+    using SharpCache.Common.Interfaces;
     #endregion
 
     public class AlgorithmData

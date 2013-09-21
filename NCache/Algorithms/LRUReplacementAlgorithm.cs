@@ -1,7 +1,7 @@
-﻿namespace NCache.Algorithms
+﻿namespace SharpCache.Algorithms
 {
     #region Using Directives
-    using NCache.Interfaces;
+    using SharpCache.Interfaces;
     #endregion
 
     public class LRUReplacementAlgorithm : IReplacementAlgorithm

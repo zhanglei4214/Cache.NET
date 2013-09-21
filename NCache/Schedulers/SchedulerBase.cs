@@ -1,12 +1,12 @@
-﻿namespace NCache.Schedulers
+﻿namespace SharpCache.Schedulers
 {
     #region Using Directives
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using NCache.EventArguments;
-    using NCache.Interfaces;
+    using SharpCache.EventArguments;
+    using SharpCache.Interfaces;
     #endregion
 
     internal abstract class SchedulerBase : ICacheScheduler, IDisposable

@@ -1,4 +1,4 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     /// <summary>
     /// P1 is the highest, P5 is the lowest.

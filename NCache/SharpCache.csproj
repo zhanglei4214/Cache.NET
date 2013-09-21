@@ -8,8 +8,8 @@
     <ProjectGuid>{DC3496F6-8D24-4C46-AAA2-267C783E28EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NCache</RootNamespace>
-    <AssemblyName>NCache</AssemblyName>
+    <RootNamespace>SharpCache</RootNamespace>
+    <AssemblyName>SharpCache</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,4 +1,4 @@
-﻿namespace NCache.Interfaces
+﻿namespace SharpCache.Interfaces
 {
     internal interface ICacheScheduler
     {

@@ -1,4 +1,4 @@
-﻿namespace NCache.Mediums
+﻿namespace SharpCache.Mediums
 {
     public enum CacheMediumType
     {

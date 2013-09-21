@@ -1,4 +1,4 @@
-﻿namespace NCache.Mediums
+﻿namespace SharpCache.Mediums
 {
     #region Using Directives
     using System;

@@ -1,7 +1,7 @@
-﻿namespace NCache.Interfaces
+﻿namespace SharpCache.Interfaces
 {
     #region Using Directives
-    using NCache.Algorithms;
+    using SharpCache.Algorithms;
     #endregion
 
     public interface IReplaceableCache

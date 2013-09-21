@@ -1,8 +1,8 @@
-﻿namespace NCache.Common.DataStructures
+﻿namespace SharpCache.Common.DataStructures
 {
     #region Using Directives
     using System;
-    using NCache.Common.Interfaces;
+    using SharpCache.Common.Interfaces;
     #endregion
 
     public class DoubleLinkList<T> : IDoubleLinkList<T>

@@ -1,4 +1,4 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     using System;
 

@@ -1,8 +1,8 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Directives
     using System;
-    using NCache.Interfaces;
+    using SharpCache.Interfaces;
     #endregion
 
     internal abstract class CacheBase : ICache

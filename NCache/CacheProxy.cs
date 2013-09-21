@@ -1,8 +1,8 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Directives
-    using NCache.Interfaces;
-    using NCache.Schedulers;
+    using SharpCache.Interfaces;
+    using SharpCache.Schedulers;
     #endregion
 
     internal class CacheProxy : CacheBase

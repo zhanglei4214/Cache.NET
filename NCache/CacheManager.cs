@@ -1,10 +1,10 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Directives
     using System;
     using System.Collections.Generic;
-    using NCache.Interfaces;
-    using NCache.Schedulers;
+    using SharpCache.Interfaces;
+    using SharpCache.Schedulers;
     #endregion
 
     public class CacheManager : ICacheManager

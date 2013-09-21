@@ -1,9 +1,9 @@
-﻿namespace NCache.Interfaces
+﻿namespace SharpCache.Interfaces
 {
     #region Using Directives
     using System;
-    using NCache.EventArguments;
-    using NCache.Mediums;
+    using SharpCache.EventArguments;
+    using SharpCache.Mediums;
     #endregion
 
     internal interface ICacheMedium

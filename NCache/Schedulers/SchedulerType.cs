@@ -1,4 +1,4 @@
-﻿namespace NCache.Schedulers
+﻿namespace SharpCache.Schedulers
 {
     public enum SchedulerType
     {

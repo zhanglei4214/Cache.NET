@@ -1,4 +1,4 @@
-﻿namespace NCache.EventArguments
+﻿namespace SharpCache.EventArguments
 {
     #region Using Directives
     using System;

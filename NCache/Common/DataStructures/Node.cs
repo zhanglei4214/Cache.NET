@@ -1,4 +1,4 @@
-﻿namespace NCache.Common.DataStructures
+﻿namespace SharpCache.Common.DataStructures
 {
     #region Using Directives
     using System;

@@ -1,11 +1,11 @@
-﻿namespace NCache.Mediums
+﻿namespace SharpCache.Mediums
 {
     #region Using Directives
     using System;
     using System.Text;
-    using NCache.Algorithms;
-    using NCache.EventArguments;
-    using NCache.Interfaces;
+    using SharpCache.Algorithms;
+    using SharpCache.EventArguments;
+    using SharpCache.Interfaces;
     #endregion
 
     internal abstract class CacheMediumBase : ICacheMedium, IReplaceableCache

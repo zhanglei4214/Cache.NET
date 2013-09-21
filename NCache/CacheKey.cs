@@ -1,11 +1,11 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Namespace
     using System;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Text;
-    using NCache.Hash;
+    using SharpCache.Hash;
     #endregion
 
     [Serializable]

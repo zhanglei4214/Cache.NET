@@ -1,7 +1,7 @@
-﻿namespace NCache
+﻿namespace SharpCache
 {
     #region Using Directives
-    using NCache.Schedulers;
+    using SharpCache.Schedulers;
     #endregion
 
     public class CacheConfiguration

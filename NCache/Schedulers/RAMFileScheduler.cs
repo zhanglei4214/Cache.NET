@@ -1,8 +1,8 @@
-﻿namespace NCache.Schedulers
+﻿namespace SharpCache.Schedulers
 {
     #region Using Directives
     using System;
-    using NCache.Mediums;
+    using SharpCache.Mediums;
     #endregion
 
     internal class RAMFileScheduler : SchedulerBase
