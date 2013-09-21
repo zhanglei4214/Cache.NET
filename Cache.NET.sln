@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache.NET", "Cache.NET\Cache.NET.csproj", "{993FB00F-C925-428E-9EB3-679F3F98BF1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCache", "NCache\SharpCache.csproj", "{DC3496F6-8D24-4C46-AAA2-267C783E28EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCache", "SharpCache\SharpCache.csproj", "{DC3496F6-8D24-4C46-AAA2-267C783E28EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
