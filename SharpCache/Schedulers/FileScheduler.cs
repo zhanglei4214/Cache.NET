@@ -2,6 +2,7 @@
 {
     #region Using Directives
     using System;
+    using Microsoft.Practices.Prism.Logging;
     using SharpCache.Mediums;
     #endregion
 
@@ -13,9 +14,13 @@
 
         #region Constructors
 
-        public FileScheduler(SchedulerConfiguration configuration)
-            : base(configuration)
+        public FileScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
+            : base(configuration, logger)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("FileScheduler is created.", Category.Info, Priority.High);
+            }
         }
 
         #endregion
@@ -39,6 +44,11 @@
             file.NextCacheMedium = null;
 
             this.mediums.Add(file);
+
+            if (this.logger != null)
+            {
+                this.logger.Log("First medium is File.", Category.Debug, Priority.Low);
+            }
         }
 
         #endregion

@@ -7,6 +7,7 @@
     using System.Text;
     using SharpCache.EventArguments;
     using SharpCache.Interfaces;
+    using Microsoft.Practices.Prism.Logging;
     #endregion
 
     internal abstract class SchedulerBase : ICacheScheduler, IDisposable
@@ -15,13 +16,17 @@
 
         protected List<ICacheMedium> mediums;
 
+        protected readonly ILoggerFacade logger;
+
         #endregion
 
         #region Constructors
 
-        public SchedulerBase(SchedulerConfiguration configuration)
+        public SchedulerBase(SchedulerConfiguration configuration, ILoggerFacade logger)
         {
             this.mediums = new List<ICacheMedium>();
+
+            this.logger = logger;
 
             this.CreateCacheHierarchy(configuration.MediumSizeList);
 
@@ -53,6 +58,11 @@
 
         public CacheValue Get(CacheKey key)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Get " + key.ToString(), Category.Info, Priority.Medium);
+            }
+
             foreach (ICacheMedium medium in this.mediums)
             {
                 CacheValue value = medium.Get(key);
@@ -62,11 +72,21 @@
                 }
             }
 
+            if (this.logger != null)
+            {
+                this.logger.Log("Miss " + key.ToString(), Category.Info, Priority.Medium);
+            }
+
             return null;
         }
 
         public bool Set(CacheKey key, CacheValue value)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Set " + key.ToString() + ":" + value.ToString(), Category.Info, Priority.Medium);
+            }
+
             if (this.Remove(key) == false)
             {
                 return false;
@@ -77,6 +97,11 @@
 
         public bool Remove(CacheKey key)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Remove " + key.ToString(), Category.Info, Priority.Medium);
+            }
+
             foreach (ICacheMedium medium in this.mediums)
             {
                 medium.Remove(key);
@@ -92,6 +117,11 @@
 
         public void Clear()
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Clear the entire cache.", Category.Info, Priority.Medium);
+            }
+
             foreach (ICacheMedium medium in this.mediums)
             {
                 medium.Clear();
@@ -100,6 +130,11 @@
 
         public void Adjust(SchedulerConfiguration configuration)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Adjust scheduler configuration.", Category.Info, Priority.High);
+            }
+
             this.UpdateReplacementAlgorithms(configuration);
         }
 
@@ -180,6 +215,11 @@
 
         private void AddCacheItemEventHander(object sender, AddCacheItemEventArgs e)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("AddCacheItemEventHander is invoked.", Category.Debug, Priority.Low);
+            }
+
             ICacheMedium medium = sender as ICacheMedium;
 
             if (medium == null)
@@ -227,6 +267,11 @@
 
         private void GetCacheItemEventHander(object sender, GetCacheItemEventArgs e)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("GetCacheItemEventHandler is invoked.", Category.Debug, Priority.Low);
+            }
+
             ICacheMedium medium = sender as ICacheMedium;
 
             if (medium == null)
@@ -245,13 +290,18 @@
             if (medium == this.mediums[0])
             {
                 return;
-            }
+            }            
 
             this.MoveCacheItem(medium, this.mediums[0], e.Key, e.Value);
         }
 
         private void MoveCacheItem(ICacheMedium from, ICacheMedium to, CacheKey key, CacheValue value)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("Move cache item: " + key.ToString() + " from " + from.CacheName + " to " + to.CacheName, Category.Info, Priority.Medium);
+            }
+
             from.Remove(key);
 
             to.Set(key, value);

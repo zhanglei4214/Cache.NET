@@ -1,6 +1,8 @@
 ﻿namespace SharpCache
 {
     #region Using Directives
+    using System;
+    using Microsoft.Practices.Prism.Logging;
     using SharpCache.Interfaces;
     #endregion
 
@@ -16,6 +18,16 @@
 
         public Cache(string name, CacheConfiguration configuration)
         {
+            if (configuration == null)
+            {
+                throw new NullReferenceException("CacheConfiguration is NULL."); 
+            }
+
+            if (configuration.Logger != null)
+            {
+                configuration.Logger.Log("Create a new cache: " + name, Category.Info, Priority.High);
+            }
+
             this.proxy = new CacheProxy(name, configuration);
         }
 

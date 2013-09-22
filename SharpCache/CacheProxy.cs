@@ -65,7 +65,7 @@
 
         private void ConfigureHierarchy(CacheConfiguration configuration)
         {
-            this.scheduler = SchedulerBase.Factory.Create(configuration.SchedulerConfiguration);
+            this.scheduler = SchedulerBase.Factory.Create(configuration.SchedulerConfiguration, configuration.Logger);
         }
 
         #endregion

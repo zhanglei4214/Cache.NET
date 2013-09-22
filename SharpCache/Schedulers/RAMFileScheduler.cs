@@ -2,6 +2,7 @@
 {
     #region Using Directives
     using System;
+    using Microsoft.Practices.Prism.Logging;
     using SharpCache.Mediums;
     #endregion
 
@@ -9,9 +10,13 @@
     {
         #region Constructors
 
-        public RAMFileScheduler(SchedulerConfiguration configuration)
-            : base(configuration)
+        public RAMFileScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
+            : base(configuration, logger)
         {
+            if (this.logger != null)
+            {
+                this.logger.Log("RAMFileScheduler is created.", Category.Info, Priority.High);
+            }
         }
 
         #endregion
@@ -42,6 +47,11 @@
             this.mediums.Add(ram);
 
             this.mediums.Add(file);
+
+            if (this.logger != null)
+            {
+                this.logger.Log("First medium is RAM, second medum is File.", Category.Debug, Priority.Low);
+            }
         }
 
         #endregion

@@ -1,6 +1,7 @@
 ﻿namespace SharpCache
 {
     #region Using Directives
+    using Microsoft.Practices.Prism.Logging;
     using SharpCache.Schedulers;
     #endregion
 
@@ -27,6 +28,8 @@
         #endregion
 
         #region Properties
+
+        public ILoggerFacade Logger { get; set; }
 
         public SchedulerConfiguration SchedulerConfiguration
         {

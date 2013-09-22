@@ -2,6 +2,7 @@
 {
     #region Using Directives
     using System;
+    using Microsoft.Practices.Prism.Logging;
     using SharpCache.Interfaces;
     #endregion
 
@@ -29,16 +30,16 @@
 
         #region Public Methods
 
-        public ICacheScheduler Create(SchedulerConfiguration configuration)
+        public ICacheScheduler Create(SchedulerConfiguration configuration, ILoggerFacade logger)
         {
             switch (configuration.Type)
             {
                 case SchedulerType.RAMScheduler:
-                    return new RAMScheduler(configuration);
+                    return new RAMScheduler(configuration, logger);
                 case SchedulerType.FileScheduler:
-                    return new FileScheduler(configuration);
+                    return new FileScheduler(configuration, logger);
                 case SchedulerType.RAMFileScheduler:
-                    return new RAMFileScheduler(configuration);
+                    return new RAMFileScheduler(configuration, logger);
                 default:
                     throw new NotSupportedException("Not support scheduler");
             }

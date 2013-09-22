@@ -73,6 +73,11 @@
             return (int)this.InternalIndex;
         }
 
+        public override string ToString()
+        {
+            return "CacheKey: " + this.InternalIndex.ToString();
+        }
+
         /// <summary>
         /// Saves the current object  to a file
         /// </summary>

@@ -55,6 +55,11 @@
 
         #region Public Methods
 
+        public override string ToString()
+        {
+            return "CacheValue: " + this.GetCacheValueSummary();
+        }
+
         public static implicit operator CacheValue(string content)
         {
             CacheValue value = new CacheValue();
@@ -109,6 +114,24 @@
             value.Content = content;
 
             return value;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private string GetCacheValueSummary()
+        {
+            string content = this.Content.ToString();
+
+            if (content.Length < 30)
+            {
+                return content;
+            }
+            else
+            {
+                return content.Substring(0, 30) + "...";
+            }
         }
 
         #endregion
