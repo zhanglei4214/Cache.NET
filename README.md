@@ -1,7 +1,8 @@
 Cache.NET
 =========
 
-This cache framework is implemented in C#. 
+SharpCache is an event driven and configable cache framework implemented in C#. 
 
-Author: Ian Zhang
-Email: zhanglei4214@gmail.com
+Author: Ian Zhang<p/>
+Email: zhanglei4214@gmail.com<p/>
+
