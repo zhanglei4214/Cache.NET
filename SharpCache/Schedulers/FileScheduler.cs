@@ -38,7 +38,7 @@
                 throw new Exception("CapacityList doesn't match SchedulerType");
             }
 
-            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[0]);
+            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[0], this.logger);
 
             file.PreviousCacheMedium = null;
             file.NextCacheMedium = null;

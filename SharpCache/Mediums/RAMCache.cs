@@ -4,6 +4,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Microsoft.Practices.Prism.Logging;
     #endregion
 
     internal class RAMCache : CacheMediumBase
@@ -16,8 +17,8 @@
 
         #region Constructors
 
-        public RAMCache(string name, CacheCapacity capacity)
-            : base(name, capacity)
+        public RAMCache(string name, CacheCapacity capacity, ILoggerFacade logger)
+            : base(name, capacity, logger)
         {
             // if there is no capacity parameter initialized, do not use cache
             if (this.Capacity.IsEmpty() == true)

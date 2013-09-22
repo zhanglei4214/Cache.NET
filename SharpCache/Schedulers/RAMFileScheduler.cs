@@ -34,9 +34,9 @@
                 throw new Exception("CapacityList doesn't match SchedulerType");
             }
 
-            RAMCache ram = new RAMCache(CacheMediumType.RAM.ToString(), cacheCapacityList[0]);
+            RAMCache ram = new RAMCache(CacheMediumType.RAM.ToString(), cacheCapacityList[0], this.logger);
 
-            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[1]);
+            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[1], this.logger);
 
             ram.PreviousCacheMedium = null;
             ram.NextCacheMedium = file;

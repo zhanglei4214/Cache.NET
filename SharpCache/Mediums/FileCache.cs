@@ -2,14 +2,15 @@
 {
     #region Using Directives
     using System;
+    using Microsoft.Practices.Prism.Logging;
     #endregion
 
     internal class FileCache : CacheMediumBase
     {
         #region Constructors
 
-        public FileCache(string name,CacheCapacity capacity)
-            : base(name, capacity)
+        public FileCache(string name,CacheCapacity capacity, ILoggerFacade logger)
+            : base(name, capacity, logger)
         {
         }
 

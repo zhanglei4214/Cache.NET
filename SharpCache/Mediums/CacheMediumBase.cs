@@ -6,11 +6,14 @@
     using SharpCache.Algorithms;
     using SharpCache.EventArguments;
     using SharpCache.Interfaces;
+    using Microsoft.Practices.Prism.Logging;
     #endregion
 
     internal abstract class CacheMediumBase : ICacheMedium, IReplaceableCache
     {
         #region Fields
+
+        protected readonly ILoggerFacade logger;
 
         private CacheCapacity capacity;
 
@@ -30,8 +33,15 @@
 
         #region Constructors
 
-        public CacheMediumBase(string name, CacheCapacity capacity)
+        public CacheMediumBase(string name, CacheCapacity capacity, ILoggerFacade logger)
         {
+            this.logger = logger;
+
+            if (this.logger != null)
+            {
+                this.logger.Log("Cache medium " + name + " instance is created.", Category.Info, Priority.Medium);
+            }
+
             this.Capacity = capacity;
 
             this.name = name;
