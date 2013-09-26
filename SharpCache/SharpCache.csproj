@@ -53,6 +53,7 @@
     <Compile Include="CacheBase.cs" />
     <Compile Include="CacheCapacity.cs" />
     <Compile Include="CacheConfiguration.cs" />
+    <Compile Include="Config\CacheConfigurationBuilder.cs" />
     <Compile Include="CacheItem.cs" />
     <Compile Include="CacheItemMetaData.cs" />
     <Compile Include="CacheKey.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="Common\DataStructures\DoubleLinkList.cs" />
     <Compile Include="Common\DataStructures\Node.cs" />
     <Compile Include="Common\Interfaces\IDoubleLinkList.cs" />
+    <Compile Include="Config\ConfigNode.cs" />
+    <Compile Include="Config\ConfigurationInfo.cs" />
     <Compile Include="EventArguments\AddCacheItemEventArgs.cs" />
     <Compile Include="EventArguments\GetCacheItemEventArgs.cs" />
     <Compile Include="EventArguments\RemoveCacheItemEventArgs.cs" />
@@ -88,8 +91,15 @@
     <Compile Include="Schedulers\SchedulerType.cs" />
     <Compile Include="Schedulers\RAMFileScheduler.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Config\DefaultCacheConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy "$(SolutionDir)SharpCache\Config"  "$(TargetDir)" /d /y /i /e</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

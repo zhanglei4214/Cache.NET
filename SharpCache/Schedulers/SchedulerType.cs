@@ -4,6 +4,7 @@
     {
         RAMScheduler,
         FileScheduler,
-        RAMFileScheduler
+        RAMFileScheduler,
+        Invalid
     }
 }

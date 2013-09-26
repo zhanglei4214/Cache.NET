@@ -8,7 +8,7 @@
 
         ICache Contains(string name);
 
-        ICache Create(string name);
+        ICache Create(string name, string file);
 
         ICache Create(string name, CacheConfiguration configuration);
 

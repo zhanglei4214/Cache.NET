@@ -3,8 +3,8 @@
     #region Using Directives
     using System;
     using System.Collections.Generic;
+    using SharpCache.Config;
     using SharpCache.Interfaces;
-    using SharpCache.Schedulers;
     #endregion
 
     public class CacheManager : ICacheManager
@@ -56,20 +56,16 @@
             return this.caches.Find(cache => cache.Name == name);
         }
 
-        public ICache Create(string name)
+        public ICache Create(string name, string file)
         {
             if (this.Contains(name) != null)
             {
                 return null;
             }
 
-            CacheConfiguration configuration = new CacheConfiguration(SchedulerType.RAMScheduler);
+            CacheConfiguration configuration = CacheConfigurationBuilder.Build(file);
 
-            ICache cache = new Cache(name, configuration);
-
-            this.caches.Add(cache);
-
-            return cache;
+            return this.Create(name, configuration);
         }
 
         public ICache Create(string name, CacheConfiguration configuration)
