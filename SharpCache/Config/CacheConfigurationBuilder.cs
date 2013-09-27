@@ -1,11 +1,12 @@
 ﻿namespace SharpCache.Config
 {
     #region Using Directives
-    using System;
+    using System;    
     using System.IO;
+    using System.Linq;
     using System.Xml;
     using SharpCache.Interfaces;
-    using SharpCache.Schedulers;
+    using SharpCache.Mediums;
     #endregion
 
     public class CacheConfigurationBuilder
@@ -47,14 +48,24 @@
 
             ConfigurationInfo info = ParseXMLIntoConfigurationInfo(doc);
 
-            CacheConfiguration configuration = new CacheConfiguration(info.SchedulerType);
-
-            return configuration;
+            return GenerateCacheConfiguration(info);
         }
 
         #endregion
 
         #region Private Methods
+
+        private static CacheConfiguration GenerateCacheConfiguration(ConfigurationInfo info)
+        {
+            CacheConfiguration configuration = new CacheConfiguration();
+
+            foreach (ConfigNode node in info)
+            {                                
+                configuration.SchedulerConfiguration.Add(node.Convert());
+            }
+
+            return configuration;
+        }
 
         private static ConfigurationInfo ParseXMLIntoConfigurationInfo(XmlDocument doc)
         {            
@@ -93,7 +104,7 @@
 
                 else if (attribute.Name == "Type")
                 {
-                    configNode.Type = (SchedulerType)Enum.Parse(typeof(SchedulerType), attribute.Value + "Scheduler");
+                    configNode.Type = (CacheMediumType)Enum.Parse(typeof(CacheMediumType), attribute.Value);
                 }
             }
 

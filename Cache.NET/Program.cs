@@ -16,7 +16,6 @@ namespace Cache.NET
             string conf = Path.Combine(Environment.CurrentDirectory, "DefaultCacheConfiguration.xml");
 
             var ff = cm.Create("ff", conf);
-            int a = 0;
         }
     }
 }

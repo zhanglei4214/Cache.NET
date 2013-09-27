@@ -16,13 +16,8 @@
         #region Constructors
 
         public CacheConfiguration()
-            : this(SchedulerType.RAMScheduler)
         {
-        }
-
-        public CacheConfiguration(SchedulerType type)
-        {
-            this.schedulerConfiguration = new SchedulerConfiguration(type);
+            this.schedulerConfiguration = new SchedulerConfiguration();
         }
 
         #endregion

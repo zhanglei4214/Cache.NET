@@ -81,6 +81,7 @@
     <Compile Include="Mediums\CacheMediumBase.cs" />
     <Compile Include="Mediums\CacheMediumType.cs" />
     <Compile Include="Mediums\FileCache.cs" />
+    <Compile Include="Mediums\MediumConfiguration.cs" />
     <Compile Include="Mediums\RAMCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfiguration.cs" />

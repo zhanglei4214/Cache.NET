@@ -3,8 +3,9 @@
     #region Using Directives
     using System;
     using System.Collections.Generic;
-    using SharpCache.Algorithms;
+    using System.Linq;
     using SharpCache.Interfaces;
+    using SharpCache.Mediums;
     using SharpCache.Schedulers;
     #endregion
 
@@ -13,33 +14,18 @@
         #region Fields
 
         private SchedulerType type;
-        /// <summary>
-        /// Medium Size List
-        /// </summary>
-        private List<CacheCapacity> mediumSizeList;
 
-        private List<IReplacementAlgorithm> algorithms;
+        private List<MediumConfiguration> mediumConfigurationList;
 
         #endregion
 
         #region Constructors
 
-        public SchedulerConfiguration(SchedulerType type)
+        public SchedulerConfiguration()
         {
-            switch (type)
-            {
-                case SchedulerType.FileScheduler:
-                    this.DefaultFileSchedulerConfiguration();
-                    break;
-                case SchedulerType.RAMScheduler:
-                    this.DefaultRAMSchedulerConfiguration();
-                    break;
-                case SchedulerType.RAMFileScheduler:
-                    this.DefaultRAMFileSchedulerConfiguration();
-                    break;
-                default:
-                    throw new NotSupportedException("scheduler type is not supported.");
-            }
+            this.type = SchedulerType.Invalid;
+
+            this.mediumConfigurationList = new List<MediumConfiguration>();
         }
 
         #endregion
@@ -50,7 +36,7 @@
         {
             get
             {
-                return this.mediumSizeList.ToArray();
+                return this.mediumConfigurationList.Select<MediumConfiguration, CacheCapacity>(c => c.Capacity).ToArray<CacheCapacity>();
             }
         }
 
@@ -60,18 +46,13 @@
             {
                 return this.type;
             }
-
-            set
-            {
-                this.type = value;
-            }
         }
 
         public IReplacementAlgorithm[] Algorithms
         {
             get
             {
-                return this.algorithms.ToArray();
+                return this.mediumConfigurationList.Select<MediumConfiguration, IReplacementAlgorithm>(c => c.Algorithm).ToArray<IReplacementAlgorithm>();
             }
         }
 
@@ -79,78 +60,82 @@
 
         #region Public Methods
 
-        public void ChangeCacheCapacity(int index, CacheCapacity capacity)
+        public void Add(MediumConfiguration item)
+        {
+            this.mediumConfigurationList.Add(item);
+
+            this.AdjustScheduleType();
+        }
+
+        public void Clear()
+        {
+            this.mediumConfigurationList.Clear();
+
+            this.AdjustScheduleType();
+        }
+
+        public void UpdateCacheCapacity(int index, CacheCapacity capacity)
         {
             if (capacity == null)
             {
                 throw new NullReferenceException("capacity is null.");
             }
 
-            int mediumSize = this.algorithms.Capacity;
-
-            if (index < 0 || index >= mediumSize)
+            if (index < 0 || index >= this.mediumConfigurationList.Count)
             {
                 throw new IndexOutOfRangeException("index is out of range.");
             }
 
-            this.mediumSizeList[index] = capacity;
+            this.mediumConfigurationList[index].UpdateCacheCapacity(capacity);
         }
 
-        public void ChangeAlgorithm(int index, IReplacementAlgorithm algorithm)
+        public void UpdateAlgorithm(int index, IReplacementAlgorithm algorithm)
         {
             if (algorithm == null)
             {
                 throw new NullReferenceException("algorithm is null.");
             }
 
-            int mediumSize = this.algorithms.Capacity;
-
-            if (index < 0 || index >= mediumSize)
+            if (index < 0 || index >= this.mediumConfigurationList.Count)
             {
                 throw new IndexOutOfRangeException("index is out of range.");
             }
 
-            this.algorithms[index] = algorithm;
+            this.mediumConfigurationList[index].UpdateAlgorithm(algorithm);
         }
 
         #endregion
 
         #region Private Methods
 
-        private void DefaultRAMSchedulerConfiguration()
+        private void AdjustScheduleType()
         {
-            this.type = SchedulerType.RAMScheduler;
-
-            this.algorithms = new List<IReplacementAlgorithm>(1);
-            this.algorithms.Add(new LRUReplacementAlgorithm());
-
-            this.mediumSizeList = new List<CacheCapacity>();
-            this.mediumSizeList.Add(new CacheCapacity(Primary.COUNTONLY, 500));
-        }
-
-        private void DefaultFileSchedulerConfiguration()
-        {
-            this.type = SchedulerType.FileScheduler;
-
-            this.algorithms = new List<IReplacementAlgorithm>(1);
-            this.algorithms.Add(new LRUReplacementAlgorithm());
-
-            this.mediumSizeList = new List<CacheCapacity>(1);
-            this.mediumSizeList.Add(new CacheCapacity(Primary.COUNTONLY, 5000));
-        }
-
-        private void DefaultRAMFileSchedulerConfiguration()
-        {
-            this.type = SchedulerType.RAMFileScheduler;
-
-            this.algorithms = new List<IReplacementAlgorithm>(2);
-            //// Both RAM and file mediums adopt LRU replacement algorithm.
-            this.algorithms.Add(new LRUReplacementAlgorithm());
-            this.algorithms.Add(new LRUReplacementAlgorithm());
-
-            this.mediumSizeList = new List<CacheCapacity>(2);
-            this.mediumSizeList.Add(new CacheCapacity(Primary.COUNTONLY, 500));
-            this.mediumSizeList.Add(new CacheCapacity(Primary.COUNTONLY, 5000));
+            if (this.mediumConfigurationList.Count == 0)
+            {
+                this.type = SchedulerType.Invalid;
+            }
+            else if (this.mediumConfigurationList.Count == 1)
+            {
+                switch (this.mediumConfigurationList[0].Type)
+                {
+                    case CacheMediumType.File:
+                        this.type = SchedulerType.FileScheduler;
+                        break;
+                    case CacheMediumType.RAM:
+                        this.type = SchedulerType.RAMScheduler;
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            else if (this.mediumConfigurationList.Count == 1)
+            {
+                this.type = SchedulerType.RAMFileScheduler;
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
         }
 
         #endregion

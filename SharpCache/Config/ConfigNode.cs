@@ -2,6 +2,7 @@
 {
     #region Using Directives
     using SharpCache.Interfaces;
+    using SharpCache.Mediums;
     using SharpCache.Schedulers;
     #endregion
 
@@ -12,7 +13,7 @@
         public ConfigNode()
         {
             this.Level = -1;
-            this.Type = SchedulerType.Invalid;
+            this.Type = CacheMediumType.None;
             this.Algorithm = null;
             this.Capacity = null;
         }
@@ -23,7 +24,7 @@
 
         public int Level { get; set; }
 
-        public SchedulerType Type { get; set; }
+        public CacheMediumType Type { get; set; }
 
         public IReplacementAlgorithm Algorithm { get; set; }
 
@@ -40,7 +41,7 @@
                 return false;
             }
 
-            if (this.Type == SchedulerType.Invalid)
+            if (this.Type == CacheMediumType.None)
             {
                 return false;
             }
@@ -56,6 +57,11 @@
             }
 
             return true;
+        }
+
+        public MediumConfiguration Convert()
+        {
+            return new MediumConfiguration(this.Type, this.Capacity, this.Algorithm);
         }
 
         #endregion
