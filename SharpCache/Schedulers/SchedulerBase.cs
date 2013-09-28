@@ -172,9 +172,9 @@
         {
             foreach (ICacheMedium medium in this.mediums)
             {
-                medium.GetCacheItemEvent    += new EventHandler<GetCacheItemEventArgs>(this.GetCacheItemEventHander);
-                medium.AddCacheItemEvent    += new EventHandler<AddCacheItemEventArgs>(this.AddCacheItemEventHander);
-                medium.RemoveCacheItemEvent += new EventHandler<RemoveCacheItemEventArgs>(this.RemoveCacheItemEventHander);
+                medium.GetCacheItemEvent    += new EventHandler<GetCacheItemEventArgs>(this.GetCacheItemEventHandler);
+                medium.AddCacheItemEvent    += new EventHandler<AddCacheItemEventArgs>(this.AddCacheItemEventHandler);
+                medium.RemoveCacheItemEvent += new EventHandler<RemoveCacheItemEventArgs>(this.RemoveCacheItemEventHandler);
                 medium.ClearCacheItemsEvent += new EventHandler(this.ClearCacheItemsEventHander);
             }
         }
@@ -183,9 +183,9 @@
         {
             foreach (ICacheMedium medium in this.mediums)
             {
-                medium.GetCacheItemEvent    -= new EventHandler<GetCacheItemEventArgs>(this.GetCacheItemEventHander);
-                medium.AddCacheItemEvent    -= new EventHandler<AddCacheItemEventArgs>(this.AddCacheItemEventHander);
-                medium.RemoveCacheItemEvent -= new EventHandler<RemoveCacheItemEventArgs>(this.RemoveCacheItemEventHander);
+                medium.GetCacheItemEvent    -= new EventHandler<GetCacheItemEventArgs>(this.GetCacheItemEventHandler);
+                medium.AddCacheItemEvent    -= new EventHandler<AddCacheItemEventArgs>(this.AddCacheItemEventHandler);
+                medium.RemoveCacheItemEvent -= new EventHandler<RemoveCacheItemEventArgs>(this.RemoveCacheItemEventHandler);
                 medium.ClearCacheItemsEvent -= new EventHandler(this.ClearCacheItemsEventHander);
             }
         }
@@ -213,7 +213,7 @@
             }
         }
 
-        private void AddCacheItemEventHander(object sender, AddCacheItemEventArgs e)
+        private void AddCacheItemEventHandler(object sender, AddCacheItemEventArgs e)
         {
             if (this.logger != null)
             {
@@ -265,7 +265,7 @@
             }
         }
 
-        private void GetCacheItemEventHander(object sender, GetCacheItemEventArgs e)
+        private void GetCacheItemEventHandler(object sender, GetCacheItemEventArgs e)
         {
             if (this.logger != null)
             {
@@ -307,7 +307,7 @@
             to.Set(key, value);
         }
 
-        private void RemoveCacheItemEventHander(object sender, RemoveCacheItemEventArgs e)
+        private void RemoveCacheItemEventHandler(object sender, RemoveCacheItemEventArgs e)
         {
             ICacheMedium medium = sender as ICacheMedium;
 
