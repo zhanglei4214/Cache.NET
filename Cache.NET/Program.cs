@@ -5,7 +5,7 @@ using System.Text;
 using System.IO;
 using SharpCache;
 
-namespace Cache.NET
+namespace SharpCache.Example
 {
     class Program
     {

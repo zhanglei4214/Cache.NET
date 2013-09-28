@@ -8,8 +8,8 @@
     <ProjectGuid>{993FB00F-C925-428E-9EB3-679F3F98BF1B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cache.NET</RootNamespace>
-    <AssemblyName>Cache.NET</AssemblyName>
+    <RootNamespace>SharpCache.Example</RootNamespace>
+    <AssemblyName>SharpCache.Example</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
