@@ -7,6 +7,7 @@
     using System.Xml;
     using SharpCache.Interfaces;
     using SharpCache.Mediums;
+    using SharpCache.Common;
     #endregion
 
     public class CacheConfigurationBuilder
@@ -23,10 +24,7 @@
 
         public static CacheConfiguration Build(string file)
         {
-            if (string.IsNullOrEmpty(file) == true)
-            {
-                throw new NullReferenceException("file name is empty.");
-            }
+            Ensure.ArgumentNotNullOrEmpty(file, "file");
 
             if (File.Exists(file) == false)
             {
@@ -41,10 +39,7 @@
 
         public static CacheConfiguration Build(XmlDocument doc)
         {
-            if (doc == null)
-            {
-                throw new NullReferenceException("XML document is null.");
-            }
+            Ensure.ArgumentNotNull(doc, "XML document");
 
             ConfigurationInfo info = ParseXMLIntoConfigurationInfo(doc);
 
