@@ -147,7 +147,7 @@
 
                 if (value != null)
                 {
-                    if (this.IsExpired(value.MetaData) == false)
+                    if (value.IsExpired() == false)
                     {
                         value.MetaData.Hittimes++;
                         value.MetaData.LastUpdated = DateTime.Now.Ticks;
@@ -248,7 +248,7 @@
             return this.previous;
         }
 
-        public CacheKey[] Replace()
+        public CacheSummary[] Replace()
         {
             if (this.algorithm == null)
             {
@@ -294,15 +294,6 @@
         protected abstract long DoMaxCount();
 
         protected abstract long DoGetCacheSize();
-
-        #endregion
-
-        #region Private Methods
-
-        private bool IsExpired(CacheItemMetaData metaData)
-        {
-            return DateTime.Now.Ticks - metaData.LastUpdated > metaData.Expire;
-        }
 
         #endregion
     }

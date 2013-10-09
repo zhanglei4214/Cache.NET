@@ -5,7 +5,7 @@
 
     public interface IReplacementAlgorithm
     {
-        CacheKey[] Replace(IReplaceableCache cache);
+        CacheSummary[] Replace(IReplaceableCache cache);
 
         void Add(CacheSummary[] summarys, IReplaceableCache cache);
 

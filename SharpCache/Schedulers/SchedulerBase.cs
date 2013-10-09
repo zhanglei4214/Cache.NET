@@ -240,7 +240,7 @@
 
         private void ReplaceItemsIfNecessary(ICacheMedium medium)
         {
-            CacheKey[] items = medium.Replace();
+            CacheSummary[] items = medium.Replace();
 
             if (items == null)
             {
@@ -251,17 +251,20 @@
 
             if (next != null)
             {
-                foreach (CacheKey item in items)
+                foreach (CacheSummary item in items)
                 {
-                    // set the cache item to next medium
-                    next.Set(item, medium.Get(item));
+                    if (item.MetaData.IsExpired() == false)
+                    {
+                        // set the cache item to next medium
+                        next.Set(item.Key, medium.Get(item.Key));
+                    }
                 }
             }
 
-            foreach (CacheKey item in items)
+            foreach (CacheSummary item in items)
             {
                 // remove the cache item from previous medium
-                medium.Remove(item);
+                medium.Remove(item.Key);
             }
         }
 

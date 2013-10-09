@@ -16,9 +16,9 @@
 
         #region Public Methods
 
-        public CacheKey[] Replace(IReplaceableCache cache)
+        public CacheSummary[] Replace(IReplaceableCache cache)
         {
-            CacheKey[] items;
+            CacheSummary[] items;
 
             // cache does not exceed maximum count, do not replace
             if (cache.Count() <= cache.MaxCount())
@@ -30,7 +30,7 @@
                 // cache count exceeds max entries, remove from the end of queue
                 int itemCountToReplace = (int) (cache.Count() - cache.MaxCount());
 
-                items = new CacheKey[itemCountToReplace];
+                items = new CacheSummary[itemCountToReplace];
 
                 for (int i = itemCountToReplace - 1; i >= 0; i--)
                 {
@@ -38,7 +38,6 @@
                 }
             }
 
-            // to do: remove cache entries has been expired
             return items;
         }
 

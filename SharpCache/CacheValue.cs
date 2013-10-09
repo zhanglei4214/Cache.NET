@@ -55,6 +55,11 @@
 
         #region Public Methods
 
+        public bool IsExpired()
+        {
+            return this.metaData.IsExpired();
+        }
+
         public override string ToString()
         {
             return "CacheValue: " + this.GetCacheValueSummary();

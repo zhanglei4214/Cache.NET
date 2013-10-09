@@ -26,16 +26,16 @@
 
         #region Public Methods
 
-        public CacheKey RemoveFromTail()
+        public CacheSummary RemoveFromTail()
         {
-            CacheKey key;
-            key = this.dataInList.Last.Value.Key;
+            CacheSummary summary;
+            summary = this.dataInList.Last.Value;
             
             //remove from the tail of the cache list, dictionary
             this.dataInList.RemoveLast();
-            this.dataInDict.Remove(key);
+            this.dataInDict.Remove(summary.Key);
 
-            return key;
+            return summary;
         }
 
         public void AddToHead(CacheSummary summary)

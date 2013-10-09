@@ -137,6 +137,16 @@
 
         #region Public Methods
 
+        public static bool IsExpired(CacheItemMetaData metaData)
+        {
+            return DateTime.Now.Ticks - metaData.LastUpdated > metaData.Expire;
+        }
+
+        public bool IsExpired()
+        {
+            return DateTime.Now.Ticks - this.LastUpdated > this.Expire;
+        }
+
         /// <summary>
         /// Saves the current object  to a file
         /// </summary>

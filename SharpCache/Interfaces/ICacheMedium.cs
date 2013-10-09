@@ -24,7 +24,7 @@
 
         string Dump();
 
-        CacheKey[] Replace();
+        CacheSummary[] Replace();
 
         ICacheMedium Next();
 
