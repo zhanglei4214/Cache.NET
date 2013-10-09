@@ -18,7 +18,7 @@
 
         public CacheValue()
         {
-            this.metaData = new CacheItemMetaData(CachePriority.P3);
+            this.metaData = new CacheItemMetaData();
         }
 
         #endregion

@@ -147,8 +147,16 @@
 
                 if (value != null)
                 {
-                    value.MetaData.Hittimes++;
-                    value.MetaData.LastUpdated = DateTime.Now.Ticks;
+                    if (this.IsExpired(value.MetaData) == false)
+                    {
+                        value.MetaData.Hittimes++;
+                        value.MetaData.LastUpdated = DateTime.Now.Ticks;
+                    }
+                    else
+                    {
+                        this.Remove(key);
+                        value = null;
+                    }
                 }
 
                 if (this.GetCacheItemEvent != null && value != null)
@@ -286,6 +294,15 @@
         protected abstract long DoMaxCount();
 
         protected abstract long DoGetCacheSize();
+
+        #endregion
+
+        #region Private Methods
+
+        private bool IsExpired(CacheItemMetaData metaData)
+        {
+            return DateTime.Now.Ticks - metaData.LastUpdated > metaData.Expire;
+        }
 
         #endregion
     }

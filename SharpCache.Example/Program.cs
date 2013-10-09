@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using SharpCache.Interfaces;
+using System.Threading;
 
 namespace SharpCache.Example
 {
@@ -11,6 +12,8 @@ namespace SharpCache.Example
             SimpleUsage();
 
             BenchmarkTest();
+
+            ExpiredTest();
 
             Console.Write("Press any key to conitnue...");
             Console.ReadKey();
@@ -58,6 +61,39 @@ namespace SharpCache.Example
             DateTime time2 = DateTime.Now;
 
             Console.WriteLine("insert 10000000 items need " + (time2 - time1).ToString()); 
+        }
+
+        private static void ExpiredTest()
+        {
+            Console.WriteLine("Expire test");
+
+            CacheManager cm = new CacheManager();
+
+            string conf = Path.Combine(Environment.CurrentDirectory, "DefaultCacheConfiguration.xml");
+
+            ICache cache = cm.Create("expire", conf);
+
+            CacheValue value = new CacheValue();
+            value.Content = "expired";
+            value.MetaData = new CacheItemMetaData(TimeSpan.FromSeconds(1).Ticks);
+
+            cache[1] = value;
+
+            CacheValue readBefore = cache[1];
+
+            if (readBefore == null)
+            {
+                throw new Exception("readBefore should not be null.");
+            }
+
+            Thread.Sleep(new TimeSpan(0, 0, 2));
+
+            CacheValue readAfter = cache[1];
+
+            if (readAfter == null)
+            {
+                Console.WriteLine("data expires after 1 second as expected.");
+            }
         }
     }
 }

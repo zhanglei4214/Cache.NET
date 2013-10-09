@@ -42,8 +42,18 @@
 
         #region Constructors
 
+        public CacheItemMetaData()
+            : this(CachePriority.P3, long.MaxValue)
+        {
+        }
+
         public CacheItemMetaData(CachePriority priority)
             : this(priority, long.MaxValue)
+        {
+        }
+
+        public CacheItemMetaData(long expire)
+            : this(CachePriority.P3, expire)
         {
         }
 

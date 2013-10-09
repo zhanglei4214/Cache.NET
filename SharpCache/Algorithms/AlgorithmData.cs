@@ -2,17 +2,15 @@
 {
     #region Using Directives
     using System.Collections.Generic;
-    using SharpCache.Common.DataStructures;
-    using SharpCache.Common.Interfaces;
     #endregion
 
     public class AlgorithmData
     {
         #region Fields
 
-        private Dictionary<CacheKey, Node<CacheSummary>> dataInDict;
+        private Dictionary<CacheKey, LinkedListNode<CacheSummary>> dataInDict;
 
-        private IDoubleLinkList<CacheSummary> dataInList;
+        private LinkedList<CacheSummary> dataInList;
 
         #endregion
 
@@ -20,8 +18,8 @@
 
         public AlgorithmData()
         {
-            this.dataInDict = new Dictionary<CacheKey, Node<CacheSummary>>();
-            this.dataInList = new DoubleLinkList<CacheSummary>();
+            this.dataInDict = new Dictionary<CacheKey, LinkedListNode<CacheSummary>>();
+            this.dataInList = new LinkedList<CacheSummary>();
         }
 
         #endregion
@@ -31,8 +29,8 @@
         public CacheKey RemoveFromTail()
         {
             CacheKey key;
-            key = this.dataInList.Tail.Data.Key;
-
+            key = this.dataInList.Last.Value.Key;
+            
             //remove from the tail of the cache list, dictionary
             this.dataInList.RemoveLast();
             this.dataInDict.Remove(key);
@@ -47,13 +45,13 @@
                 return;
             }
 
-            Node<CacheSummary> node = new Node<CacheSummary>(summary);
+            LinkedListNode<CacheSummary> node = new LinkedListNode<CacheSummary>(summary);
 
             // add key & node pair into dictionary
             this.dataInDict.Add(summary.Key, node);
 
             // create new node and put it to the head of double link list
-            this.dataInList.AddFirst(summary);
+            this.dataInList.AddFirst(node);
         }
 
         public void MoveToHead(CacheKey key)
@@ -69,10 +67,11 @@
                 return;
             }
 
-            Node<CacheSummary> node = this.dataInDict[key];
+            LinkedListNode<CacheSummary> node = this.dataInDict[key];
 
             // put node to the head of double link list
-            this.dataInList.MoveToHead(node);
+            this.dataInList.Remove(node);
+            this.dataInList.AddFirst(node);
         }
 
         public void Remove(CacheKey key)
@@ -82,7 +81,7 @@
                 return;
             }
 
-            Node<CacheSummary> node = this.dataInDict[key];
+            LinkedListNode<CacheSummary> node = this.dataInDict[key];
 
             this.dataInList.Remove(node);
 

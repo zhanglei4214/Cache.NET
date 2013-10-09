@@ -1,7 +1,6 @@
 ﻿namespace SharpCache.Interfaces
 {
     #region Using Directives
-    using SharpCache.Common.DataStructures;
     #endregion
 
     public interface IReplacementAlgorithm

@@ -62,9 +62,6 @@
     <Compile Include="CacheProxy.cs" />
     <Compile Include="CacheSummary.cs" />
     <Compile Include="CacheValue.cs" />
-    <Compile Include="Common\DataStructures\DoubleLinkList.cs" />
-    <Compile Include="Common\DataStructures\Node.cs" />
-    <Compile Include="Common\Interfaces\IDoubleLinkList.cs" />
     <Compile Include="Config\ConfigNode.cs" />
     <Compile Include="Config\ConfigurationInfo.cs" />
     <Compile Include="EventArguments\AddCacheItemEventArgs.cs" />
