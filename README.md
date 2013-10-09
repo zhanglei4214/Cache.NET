@@ -19,9 +19,8 @@ What will do in the future<p/>
 2) enable file cache<p/>
 3) enable remote cache(via socket)<p/>
 4) support more replacement algorithms<p/>
-6) enable expire feature for cache value<p/>
-7) enable unit test<p/>
-8) enhance the XML configuration usage<p/>
-9) write more examples and design documents<p/>
-10) performance tuning<p/>
+5) enable unit test<p/>
+6) enhance the XML configuration usage<p/>
+7) write more examples and design documents<p/>
+8) performance tuning<p/>
 
