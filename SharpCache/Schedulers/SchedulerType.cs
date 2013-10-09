@@ -2,9 +2,9 @@
 {
     public enum SchedulerType
     {
-        RAMScheduler,
-        FileScheduler,
-        RAMFileScheduler,
+        InMemoryScheduler,
+        InDiskScheduler,
+        MemoryDiskScheduler,
         Invalid
     }
 }

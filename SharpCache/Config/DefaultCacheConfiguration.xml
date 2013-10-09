@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SharpCache>
   <CacheMediums>
-    <Medium Name="RAMCache" Level="1" Type="RAM">
+    <Medium Name="InMemoryCache" Level="1" Type="InMemory">
       <ReplacementAlgorithm>LRUReplacementAlgorithm</ReplacementAlgorithm>
       <Capacity Type="COUNTONLY">500</Capacity>  
     </Medium>

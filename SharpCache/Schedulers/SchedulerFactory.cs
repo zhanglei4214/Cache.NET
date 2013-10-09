@@ -34,12 +34,12 @@
         {
             switch (configuration.Type)
             {
-                case SchedulerType.RAMScheduler:
-                    return new RAMScheduler(configuration, logger);
-                case SchedulerType.FileScheduler:
-                    return new FileScheduler(configuration, logger);
-                case SchedulerType.RAMFileScheduler:
-                    return new RAMFileScheduler(configuration, logger);
+                case SchedulerType.InMemoryScheduler:
+                    return new InMemoryScheduler(configuration, logger);
+                case SchedulerType.InDiskScheduler:
+                    return new InDiskScheduler(configuration, logger);
+                case SchedulerType.MemoryDiskScheduler:
+                    return new MemoryDiskScheduler(configuration, logger);
                 default:
                     throw new NotSupportedException("Not support scheduler");
             }

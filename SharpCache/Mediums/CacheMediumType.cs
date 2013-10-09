@@ -3,7 +3,7 @@
     public enum CacheMediumType
     {
         None,
-        RAM,
-        File
+        InMemory,
+        InDisk
     }
 }

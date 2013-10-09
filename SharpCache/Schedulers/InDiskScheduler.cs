@@ -6,7 +6,7 @@
     using SharpCache.Mediums;
     #endregion
 
-    internal class RAMScheduler : SchedulerBase, IDisposable
+    internal class InDiskScheduler : SchedulerBase
     {
         #region Fields
 
@@ -14,12 +14,12 @@
 
         #region Constructors
 
-        public RAMScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
+        public InDiskScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
             : base(configuration, logger)
         {
             if (this.logger != null)
             {
-                this.logger.Log("RAMScheduler is created.", Category.Info, Priority.High);
+                this.logger.Log("InDiskScheduler is created.", Category.Info, Priority.High);
             }
         }
 
@@ -38,16 +38,16 @@
                 throw new Exception("CapacityList doesn't match SchedulerType");
             }
 
-            RAMCache ram = new RAMCache(CacheMediumType.RAM.ToString(), cacheCapacityList[0], this.logger);
+            InDiskCache inDiskCache = new InDiskCache(CacheMediumType.InDisk.ToString(), cacheCapacityList[0], this.logger);
 
-            ram.PreviousCacheMedium = null;
-            ram.NextCacheMedium = null;
+            inDiskCache.PreviousCacheMedium = null;
+            inDiskCache.NextCacheMedium = null;
 
-            this.mediums.Add(ram);
+            this.mediums.Add(inDiskCache);
 
             if (this.logger != null)
             {
-                this.logger.Log("First medium is RAM.", Category.Debug, Priority.Low);
+                this.logger.Log("First medium is InDisk.", Category.Debug, Priority.Low);
             }
         }
 

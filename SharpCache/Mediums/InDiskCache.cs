@@ -5,11 +5,11 @@
     using Microsoft.Practices.Prism.Logging;
     #endregion
 
-    internal class FileCache : CacheMediumBase
+    internal class InDiskCache : CacheMediumBase
     {
         #region Constructors
 
-        public FileCache(string name,CacheCapacity capacity, ILoggerFacade logger)
+        public InDiskCache(string name,CacheCapacity capacity, ILoggerFacade logger)
             : base(name, capacity, logger)
         {
         }
@@ -20,7 +20,7 @@
 
         protected override CacheMediumType CacheMediumType()
         {
-            return Mediums.CacheMediumType.File;
+            return Mediums.CacheMediumType.InDisk;
         }
 
         protected override CacheValue DoGet(CacheKey key)

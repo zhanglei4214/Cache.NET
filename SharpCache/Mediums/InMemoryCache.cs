@@ -7,7 +7,7 @@
     using Microsoft.Practices.Prism.Logging;
     #endregion
 
-    internal class RAMCache : CacheMediumBase
+    internal class InMemoryCache : CacheMediumBase
     {
         #region Fields
 
@@ -17,7 +17,7 @@
 
         #region Constructors
 
-        public RAMCache(string name, CacheCapacity capacity, ILoggerFacade logger)
+        public InMemoryCache(string name, CacheCapacity capacity, ILoggerFacade logger)
             : base(name, capacity, logger)
         {
             // if there is no capacity parameter initialized, do not use cache
@@ -35,7 +35,7 @@
 
         protected override CacheMediumType CacheMediumType()
         {
-            return Mediums.CacheMediumType.RAM;
+            return Mediums.CacheMediumType.InMemory;
         }
 
         protected override CacheValue DoGet(CacheKey key)

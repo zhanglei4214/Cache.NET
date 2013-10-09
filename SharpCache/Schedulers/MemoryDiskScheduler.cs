@@ -6,11 +6,11 @@
     using SharpCache.Mediums;
     #endregion
 
-    internal class RAMFileScheduler : SchedulerBase
+    internal class MemoryDiskScheduler : SchedulerBase
     {
         #region Constructors
 
-        public RAMFileScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
+        public MemoryDiskScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
             : base(configuration, logger)
         {
             if (this.logger != null)
@@ -34,23 +34,23 @@
                 throw new Exception("CapacityList doesn't match SchedulerType");
             }
 
-            RAMCache ram = new RAMCache(CacheMediumType.RAM.ToString(), cacheCapacityList[0], this.logger);
+            InMemoryCache inMemoryCache = new InMemoryCache(CacheMediumType.InMemory.ToString(), cacheCapacityList[0], this.logger);
 
-            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[1], this.logger);
+            InDiskCache file = new InDiskCache(CacheMediumType.InDisk.ToString(), cacheCapacityList[1], this.logger);
 
-            ram.PreviousCacheMedium = null;
-            ram.NextCacheMedium = file;
+            inMemoryCache.PreviousCacheMedium = null;
+            inMemoryCache.NextCacheMedium = file;
 
-            file.PreviousCacheMedium = ram;
+            file.PreviousCacheMedium = inMemoryCache;
             file.NextCacheMedium = null;
 
-            this.mediums.Add(ram);
+            this.mediums.Add(inMemoryCache);
 
             this.mediums.Add(file);
 
             if (this.logger != null)
             {
-                this.logger.Log("First medium is RAM, second medum is File.", Category.Debug, Priority.Low);
+                this.logger.Log("First medium is InMemory, second medum is File.", Category.Debug, Priority.Low);
             }
         }
 

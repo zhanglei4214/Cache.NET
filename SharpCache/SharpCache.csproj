@@ -53,6 +53,7 @@
     <Compile Include="CacheBase.cs" />
     <Compile Include="CacheCapacity.cs" />
     <Compile Include="CacheConfiguration.cs" />
+    <Compile Include="Common\Ensure.cs" />
     <Compile Include="Config\CacheConfigurationBuilder.cs" />
     <Compile Include="CacheItem.cs" />
     <Compile Include="CacheItemMetaData.cs" />
@@ -79,11 +80,11 @@
     <Compile Include="Mediums\CacheMediumType.cs" />
     <Compile Include="Mediums\FileCache.cs" />
     <Compile Include="Mediums\MediumConfiguration.cs" />
-    <Compile Include="Mediums\RAMCache.cs" />
+    <Compile Include="Mediums\InMemoryCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchedulerConfiguration.cs" />
     <Compile Include="Schedulers\FileScheduler.cs" />
-    <Compile Include="Schedulers\RAMScheduler.cs" />
+    <Compile Include="Schedulers\InMemoryScheduler.cs" />
     <Compile Include="Schedulers\SchedulerBase.cs" />
     <Compile Include="Schedulers\SchedulerFactory.cs" />
     <Compile Include="Schedulers\SchedulerType.cs" />

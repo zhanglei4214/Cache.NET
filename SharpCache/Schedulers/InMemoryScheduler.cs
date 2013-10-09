@@ -6,7 +6,7 @@
     using SharpCache.Mediums;
     #endregion
 
-    internal class FileScheduler : SchedulerBase
+    internal class InMemoryScheduler : SchedulerBase, IDisposable
     {
         #region Fields
 
@@ -14,12 +14,12 @@
 
         #region Constructors
 
-        public FileScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
+        public InMemoryScheduler(SchedulerConfiguration configuration, ILoggerFacade logger)
             : base(configuration, logger)
         {
             if (this.logger != null)
             {
-                this.logger.Log("FileScheduler is created.", Category.Info, Priority.High);
+                this.logger.Log("InMemoryScheduler is created.", Category.Info, Priority.High);
             }
         }
 
@@ -38,16 +38,16 @@
                 throw new Exception("CapacityList doesn't match SchedulerType");
             }
 
-            FileCache file = new FileCache(CacheMediumType.File.ToString(), cacheCapacityList[0], this.logger);
+            InMemoryCache inMemoryCache = new InMemoryCache(CacheMediumType.InMemory.ToString(), cacheCapacityList[0], this.logger);
 
-            file.PreviousCacheMedium = null;
-            file.NextCacheMedium = null;
+            inMemoryCache.PreviousCacheMedium = null;
+            inMemoryCache.NextCacheMedium = null;
 
-            this.mediums.Add(file);
+            this.mediums.Add(inMemoryCache);
 
             if (this.logger != null)
             {
-                this.logger.Log("First medium is File.", Category.Debug, Priority.Low);
+                this.logger.Log("First medium is InMemory.", Category.Debug, Priority.Low);
             }
         }
 

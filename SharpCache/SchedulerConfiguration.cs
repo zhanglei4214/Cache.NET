@@ -118,11 +118,11 @@
             {
                 switch (this.mediumConfigurationList[0].Type)
                 {
-                    case CacheMediumType.File:
-                        this.type = SchedulerType.FileScheduler;
+                    case CacheMediumType.InDisk:
+                        this.type = SchedulerType.InDiskScheduler;
                         break;
-                    case CacheMediumType.RAM:
-                        this.type = SchedulerType.RAMScheduler;
+                    case CacheMediumType.InMemory:
+                        this.type = SchedulerType.InMemoryScheduler;
                         break;
                     default:
                         throw new NotSupportedException();
@@ -130,7 +130,7 @@
             }
             else if (this.mediumConfigurationList.Count == 1)
             {
-                this.type = SchedulerType.RAMFileScheduler;
+                this.type = SchedulerType.MemoryDiskScheduler;
             }
             else
             {
