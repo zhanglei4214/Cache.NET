@@ -2,16 +2,57 @@
 {
     #region Using Directives
     using System;
+    using System.IO;
     using Microsoft.Practices.Prism.Logging;
+    using SharpCache.Interfaces;
+    using SharpCache.Mediums.InDisk;
+    using SharpCache.Common;
     #endregion
 
     internal class InDiskCache : CacheMediumBase
     {
+        #region Fields
+
+        private const int SMALL_FILE_SIZE = 2 * 1024 * 1024;
+
+        private const int BIG_FILE_SIZE = 10 * SMALL_FILE_SIZE;
+
+        private string cacheDir;
+
+        private const string indexFile = "cache.idx";
+
+        /// <summary>
+        /// memoryCache is used to keep the meta data of InDiskCache.
+        /// </summary>
+        private ICache memoryCache;
+
+        #endregion
+
         #region Constructors
 
         public InDiskCache(string name,CacheCapacity capacity, ILoggerFacade logger)
             : base(name, capacity, logger)
         {
+            this.cacheDir = Environment.CurrentDirectory;
+
+            this.InitInternalCache();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public string CacheDir
+        {
+            get
+            {
+                return this.cacheDir;
+            }
+
+            set
+            {
+                this.cacheDir = value;
+            }
         }
 
         #endregion
@@ -25,7 +66,14 @@
 
         protected override CacheValue DoGet(CacheKey key)
         {
-            throw new NotImplementedException();
+            string filePath = this.GetCacheFile(key);
+
+            if (string.IsNullOrEmpty(filePath) == true)
+            {
+                return null;
+            }
+
+            return this.GetFromFile(filePath, key);
         }
 
         protected override bool DoSet(CacheItem[] items)
@@ -62,6 +110,66 @@
         {
             throw new NotImplementedException();
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitInternalCache()
+        {
+            this.memoryCache = null;
+        }
+
+        private string GetCacheFile(CacheKey key)
+        {
+            return null;
+        }
+
+        private CacheValue GetFromFile(string path, CacheKey key)
+        {
+            CacheValue value = this.memoryCache[path];
+            FileSummary summary = null;
+
+            if (value == null)
+            {
+                summary = this.GetFileSummary(path);
+
+                this.memoryCache[path] = new CacheValue { Content = summary };
+            }
+
+            summary.Stream.Seek(summary[key].Offset, SeekOrigin.Begin);
+
+            byte[] valueInByte = new byte[summary[key].Length];
+            summary.Stream.Read(valueInByte, 0, summary[key].Length);
+
+            return CacheValue.Deserialize(valueInByte);
+        }
+
+        private FileSummary GetFileSummary(string path)
+        {
+            FileStream handler = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+
+            Ensure.ArgumentNotNull(handler, "FileHandler");
+
+            byte[] summaryLenInByte = new byte[10];
+            handler.Seek(0, SeekOrigin.Begin);
+            handler.Read(summaryLenInByte, 0, 10);
+
+            int summaryLen = Toolkit.ConvertToIntegar(summaryLenInByte);
+
+            byte[] summaryInstance = new byte[summaryLen];
+            handler.Seek(10, SeekOrigin.Begin);
+            handler.Read(summaryLenInByte, 0, summaryLen);
+
+            FileSummary summary = FileSummary.Deserialize(summaryInstance);
+
+            Ensure.ArgumentNotNull(summary, "Summary");
+
+            summary.Stream = handler;
+
+            return summary;
+        }
+
 
         #endregion
     }

@@ -55,6 +55,11 @@
 
         #region Public Methods
 
+        public static CacheValue Deserialize(byte[] bytes)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool IsExpired()
         {
             return this.metaData.IsExpired();
