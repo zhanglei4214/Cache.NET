@@ -4,9 +4,8 @@
     using System;
     using System.IO;
     using Microsoft.Practices.Prism.Logging;
-    using SharpCache.Interfaces;
-    using SharpCache.Mediums.InDisk;
     using SharpCache.Common;
+    using SharpCache.Mediums.InDisk;
     #endregion
 
     internal class InDiskCache : CacheMediumBase
@@ -19,12 +18,7 @@
 
         private string cacheDir;
 
-        private const string indexFile = "cache.idx";
-
-        /// <summary>
-        /// memoryCache is used to keep the meta data of InDiskCache.
-        /// </summary>
-        private ICache memoryCache;
+        private readonly ICacheFileManager fileManager;
 
         #endregion
 
@@ -35,7 +29,7 @@
         {
             this.cacheDir = Environment.CurrentDirectory;
 
-            this.InitInternalCache();
+            this.fileManager = new CacheFileManager();
         }
 
         #endregion
@@ -78,12 +72,12 @@
 
         protected override bool DoSet(CacheItem[] items)
         {
-            throw new NotImplementedException();
+            return this.fileManager.Set(items);
         }
 
         protected override bool DoRemove(CacheKey key)
         {
-            throw new NotImplementedException();
+            return this.fileManager.Remove(key);
         }
 
         protected override void DoClear()
@@ -115,11 +109,6 @@
 
         #region Private Methods
 
-        private void InitInternalCache()
-        {
-            this.memoryCache = null;
-        }
-
         private string GetCacheFile(CacheKey key)
         {
             return null;
@@ -127,14 +116,14 @@
 
         private CacheValue GetFromFile(string path, CacheKey key)
         {
-            CacheValue value = this.memoryCache[path];
+            CacheValue value = this.fileManager.FileIndex[path];
             FileSummary summary = null;
 
             if (value == null)
             {
                 summary = this.GetFileSummary(path);
 
-                this.memoryCache[path] = new CacheValue { Content = summary };
+                this.fileManager.FileIndex[path] = new CacheValue { Content = summary };
             }
 
             summary.Stream.Seek(summary[key].Offset, SeekOrigin.Begin);

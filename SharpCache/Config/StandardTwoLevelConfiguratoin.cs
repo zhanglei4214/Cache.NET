@@ -18,6 +18,11 @@
 
         public static CacheConfiguration Create()
         {
+            return Create(3000, 30000);
+        }
+
+        public static CacheConfiguration Create(int firstNumber, int secondNumber)
+        {
             ConfigurationInfo config = new ConfigurationInfo();
 
             ConfigNode node1 = new ConfigNode();
