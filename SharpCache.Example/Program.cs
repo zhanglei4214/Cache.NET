@@ -2,6 +2,7 @@
 using System.IO;
 using SharpCache.Interfaces;
 using System.Threading;
+using SharpCache.Config;
 
 namespace SharpCache.Example
 {
@@ -9,7 +10,9 @@ namespace SharpCache.Example
     {
         static void Main(string[] args)
         {
-            SimpleUsage();
+            SimpleUsageViaConfigFile();
+
+            SimpleUsageViaConfigCode();
 
             BenchmarkTest();
 
@@ -19,9 +22,29 @@ namespace SharpCache.Example
             Console.ReadKey();
         }
 
-        private static void SimpleUsage()
+        private static void SimpleUsageViaConfigCode()
         {
-            Console.WriteLine("Simple Usage");
+            Console.WriteLine("Simple Usage Via Code");
+
+            CacheManager cm = new CacheManager();
+
+            ICache cache = cm.Create("simple", StandardInMemoryConfiguration.Create());
+
+            cache["key1"] = "value1";
+
+            cache["key2"] = 2;
+
+            cache[3] = "value3";
+
+            cache[4] = 4;
+
+            CacheValue value4 = cache[4];
+            int v4 = (int)value4.Content;
+        }
+
+        private static void SimpleUsageViaConfigFile()
+        {
+            Console.WriteLine("Simple Usage Via Configuration");
 
             CacheManager cm = new CacheManager();
 

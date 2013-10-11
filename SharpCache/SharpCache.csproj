@@ -66,6 +66,8 @@
     <Compile Include="CacheValue.cs" />
     <Compile Include="Config\ConfigNode.cs" />
     <Compile Include="Config\ConfigurationInfo.cs" />
+    <Compile Include="Config\StandardInMemoryConfiguration.cs" />
+    <Compile Include="Config\StandardTwoLevelConfiguratoin.cs" />
     <Compile Include="EventArguments\AddCacheItemEventArgs.cs" />
     <Compile Include="EventArguments\GetCacheItemEventArgs.cs" />
     <Compile Include="EventArguments\RemoveCacheItemEventArgs.cs" />

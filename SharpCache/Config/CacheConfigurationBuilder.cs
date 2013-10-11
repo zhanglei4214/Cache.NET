@@ -46,21 +46,21 @@
             return GenerateCacheConfiguration(info);
         }
 
-        #endregion
-
-        #region Private Methods
-
-        private static CacheConfiguration GenerateCacheConfiguration(ConfigurationInfo info)
+        public static CacheConfiguration GenerateCacheConfiguration(ConfigurationInfo info)
         {
             CacheConfiguration configuration = new CacheConfiguration();
 
             foreach (ConfigNode node in info)
-            {                                
+            {
                 configuration.SchedulerConfiguration.Add(node.Convert());
             }
 
             return configuration;
         }
+
+        #endregion
+
+        #region Private Methods
 
         private static ConfigurationInfo ParseXMLIntoConfigurationInfo(XmlDocument doc)
         {            
