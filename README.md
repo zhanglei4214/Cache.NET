@@ -16,7 +16,7 @@ The major feature includes <p>
 <p/>
 What will do in the future<p/>
 1) enable internal log (on-going)<p/>
-2) enable file cache<p/>
+2) enable file cache (on-going)<p/>
 3) enable remote cache(via socket)<p/>
 4) support more replacement algorithms<p/>
 5) enable unit test<p/>
