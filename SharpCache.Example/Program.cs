@@ -18,6 +18,8 @@ namespace SharpCache.Example
 
             ExpiredTest();
 
+          //  TwoLevelCacheTest();
+
             Console.Write("Press any key to conitnue...");
             Console.ReadKey();
         }
@@ -116,6 +118,20 @@ namespace SharpCache.Example
             if (readAfter == null)
             {
                 Console.WriteLine("data expires after 1 second as expected.");
+            }
+        }
+
+        private static void TwoLevelCacheTest()
+        {
+            Console.WriteLine("Two Level Cache Usage Via Code");
+
+            CacheManager cm = new CacheManager();
+
+            ICache cache = cm.Create("TwoLevel", StandardTwoLevelConfiguratoin.Create());
+
+            for (int i = 0; i < 5000; i++)
+            {
+                cache[i] = i;
             }
         }
     }

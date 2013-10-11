@@ -128,7 +128,7 @@
                         throw new NotSupportedException();
                 }
             }
-            else if (this.mediumConfigurationList.Count == 1)
+            else if (this.mediumConfigurationList.Count == 2)
             {
                 this.type = SchedulerType.MemoryDiskScheduler;
             }
