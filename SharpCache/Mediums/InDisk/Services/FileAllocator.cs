@@ -1,6 +1,7 @@
-﻿namespace SharpCache.Mediums.InDisk
+﻿namespace SharpCache.Mediums.InDisk.Services
 {
     #region Using Directives
+    using SharpCache.Mediums.InDisk.DataStructures;
     #endregion
 
     internal class FileAllocator

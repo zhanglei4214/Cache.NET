@@ -1,4 +1,4 @@
-﻿namespace SharpCache.Mediums.InDisk
+﻿namespace SharpCache.Mediums.InDisk.Services
 {
     #region Using Directives
     using System;
@@ -6,6 +6,8 @@
     using System.IO;
     using SharpCache.Config;
     using SharpCache.Interfaces;
+    using SharpCache.Mediums.InDisk.DataStructures;
+    using SharpCache.Mediums.InDisk.Interfaces;
     #endregion
 
     internal class CacheFileManager : ICacheFileManager

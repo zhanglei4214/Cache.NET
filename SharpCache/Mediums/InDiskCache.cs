@@ -5,7 +5,9 @@
     using System.IO;
     using Microsoft.Practices.Prism.Logging;
     using SharpCache.Common;
-    using SharpCache.Mediums.InDisk;
+    using SharpCache.Mediums.InDisk.DataStructures;
+    using SharpCache.Mediums.InDisk.Interfaces;
+    using SharpCache.Mediums.InDisk.Services;
     #endregion
 
     internal class InDiskCache : CacheMediumBase

@@ -1,4 +1,4 @@
-﻿namespace SharpCache.Mediums.InDisk
+﻿namespace SharpCache.Mediums.InDisk.DataStructures
 {
     #region Using Directives
     #endregion
