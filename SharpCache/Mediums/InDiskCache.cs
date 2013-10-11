@@ -72,7 +72,14 @@
 
         protected override bool DoSet(CacheItem[] items)
         {
-            return this.fileManager.Set(items);
+            foreach (CacheItem item in items)
+            {
+                CacheFileSector sector = FileAllocator.Parse(item.Key);
+
+                return this.fileManager.Set(sector, item.Value);
+            }
+
+            return true;
         }
 
         protected override bool DoRemove(CacheKey key)

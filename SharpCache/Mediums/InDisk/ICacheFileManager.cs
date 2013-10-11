@@ -5,7 +5,7 @@
     using SharpCache.Interfaces;
     #endregion
 
-    public interface ICacheFileManager
+    internal interface ICacheFileManager
     {
         /// <summary>
         /// FileIndex is used to keep the meta data of InDiskCache.
@@ -16,7 +16,7 @@
 
         bool Remove(CacheKey key);
 
-        bool Set(CacheItem[] items);
+        bool Set(CacheFileSector sector, object value);
 
         string AnalyzeCacheFile(string path);
 

@@ -8,7 +8,7 @@
     using SharpCache.Interfaces;
     #endregion
 
-    public class CacheFileManager : ICacheFileManager
+    internal class CacheFileManager : ICacheFileManager
     {
         #region Fields
 
@@ -65,7 +65,7 @@
             throw new NotImplementedException();
         }
 
-        public bool Set(CacheItem[] items)
+        public bool Set(CacheFileSector sector, object value)
         {
             throw new NotImplementedException();
         }

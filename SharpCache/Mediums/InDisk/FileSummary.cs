@@ -8,7 +8,7 @@
     using SharpCache.Common;
     #endregion
 
-    public class FileSummary : ISerializable
+    internal class FileSummary : ISerializable
     {
         #region Fields
 

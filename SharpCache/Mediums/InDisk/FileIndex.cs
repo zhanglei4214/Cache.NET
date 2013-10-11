@@ -3,7 +3,7 @@
     #region Using Directives
     #endregion
 
-    public class FileIndex
+    internal class FileIndex
     {
         #region Constructors
 
