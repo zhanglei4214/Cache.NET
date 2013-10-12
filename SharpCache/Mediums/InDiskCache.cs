@@ -76,7 +76,7 @@
         {
             foreach (CacheItem item in items)
             {
-                CacheFileSector sector = FileAllocator.Parse(item.Key);
+                PathSector sector = FileAllocator.Parse(item.Key);
 
                 return this.fileManager.Set(sector, item.Value);
             }

@@ -17,7 +17,7 @@
 
         bool Remove(CacheKey key);
 
-        bool Set(CacheFileSector sector, object value);
+        bool Set(PathSector sector, object value);
 
         string AnalyzeCacheFile(string path);
 

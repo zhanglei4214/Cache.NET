@@ -16,9 +16,9 @@
 
         #region Public Methods
 
-        public static CacheFileSector Parse(CacheKey key)
+        public static PathSector Parse(CacheKey key)
         {
-            return new CacheFileSector(0, 0, 0);
+            return new PathSector(0, 0, 0);
         }
 
         #endregion

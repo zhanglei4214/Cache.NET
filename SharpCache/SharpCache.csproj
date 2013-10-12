@@ -83,7 +83,7 @@
     <Compile Include="Mediums\CacheMediumType.cs" />
     <Compile Include="Mediums\InDiskCache.cs" />
     <Compile Include="Mediums\InDisk\Services\CacheFileManager.cs" />
-    <Compile Include="Mediums\InDisk\DataStructures\CacheFileSector.cs" />
+    <Compile Include="Mediums\InDisk\DataStructures\PathSector.cs" />
     <Compile Include="Mediums\InDisk\Services\FileAllocator.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\FileIndex.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\FileSummary.cs" />

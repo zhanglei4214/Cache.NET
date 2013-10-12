@@ -3,7 +3,7 @@
     #region Using Directives
     #endregion
 
-    internal class CacheFileSector
+    internal class PathSector
     {
         #region Fields
 
@@ -17,7 +17,7 @@
 
         #region Constructors
 
-        public CacheFileSector(int top, int second, int stub)
+        public PathSector(int top, int second, int stub)
         {
             this.top = top;
             this.second = second;

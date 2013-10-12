@@ -67,7 +67,7 @@
             throw new NotImplementedException();
         }
 
-        public bool Set(CacheFileSector sector, object value)
+        public bool Set(PathSector sector, object value)
         {
             throw new NotImplementedException();
         }
