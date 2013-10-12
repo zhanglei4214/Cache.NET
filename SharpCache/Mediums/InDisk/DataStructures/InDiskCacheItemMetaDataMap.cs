@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SharpCache.Mediums.InDisk.DataStructures
 {
-    internal class InDiskCacheItemDigestMap
+    internal class InDiskCacheItemMetaDataMap
     {
         #region Constructors
 
-        public InDiskCacheItemDigestMap()
+        public InDiskCacheItemMetaDataMap()
         {
         }
 
@@ -17,7 +17,7 @@ namespace SharpCache.Mediums.InDisk.DataStructures
 
         #region Public Methods
 
-        public bool TryGet(long index, out InDiskCacheItemDigest info)
+        public bool TryGet(long index, out InDiskCacheItemMetaData info)
         {
             throw new NotImplementedException();
         }

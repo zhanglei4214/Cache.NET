@@ -15,7 +15,7 @@
 
         private readonly FileAllocator allocator;
 
-        private readonly InDiskCacheItemDigestMap indexMap;
+        private readonly InDiskCacheItemMetaDataMap indexMap;
         
         private FileStream stream;
 
@@ -27,7 +27,7 @@
         {
             this.allocator = allocator;
 
-            this.indexMap = new InDiskCacheItemDigestMap();
+            this.indexMap = new InDiskCacheItemMetaDataMap();
         }
 
         #endregion
@@ -64,7 +64,7 @@
             throw new NotImplementedException();
         }
 
-        public bool TryGet(long index, out InDiskCacheItemDigest info)
+        public bool TryGet(long index, out InDiskCacheItemMetaData info)
         {
             return this.indexMap.TryGet(index, out info);
         }

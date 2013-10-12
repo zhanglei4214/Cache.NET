@@ -83,11 +83,11 @@
     <Compile Include="Mediums\CacheMediumType.cs" />
     <Compile Include="Mediums\InDiskCache.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheDigestSelector.cs" />
-    <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemDigestMap.cs" />
+    <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemMetaDataMap.cs" />
     <Compile Include="Mediums\InDisk\Services\CacheFileManager.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\PathSector.cs" />
     <Compile Include="Mediums\InDisk\Services\FileAllocator.cs" />
-    <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemDigest.cs" />
+    <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemMetaData.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheDigest.cs" />
     <Compile Include="Mediums\InDisk\Interfaces\ICacheFileManager.cs" />
     <Compile Include="Mediums\MediumConfiguration.cs" />

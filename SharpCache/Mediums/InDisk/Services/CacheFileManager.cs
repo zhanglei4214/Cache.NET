@@ -59,7 +59,7 @@
         {
             InDiskCacheDigest digest = this.CreateOrGetCacheFileDigest(sector);
 
-            InDiskCacheItemDigest item = this.CreateOrGetCacheItemDigest(digest, sector.Stub);
+            InDiskCacheItemMetaData item = this.CreateOrGetCacheItemDigest(digest, sector.Stub);
 
             //// TODO: manipulate item 1) item is not ready, find a new place
             ////                       2) item is there, space is enough, just set
@@ -110,12 +110,12 @@
             return digest;
         }
 
-        private InDiskCacheItemDigest CreateOrGetCacheItemDigest(InDiskCacheDigest digest, long index)
+        private InDiskCacheItemMetaData CreateOrGetCacheItemDigest(InDiskCacheDigest digest, long index)
         {
-            InDiskCacheItemDigest info;
+            InDiskCacheItemMetaData info;
             if (digest.TryGet(index, out info) == false)
             {
-                info = new InDiskCacheItemDigest();
+                info = new InDiskCacheItemMetaData();
             }
 
             return info;

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCache", "SharpCache\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCache.Example", "SharpCache.Example\SharpCache.Example.csproj", "{993FB00F-C925-428E-9EB3-679F3F98BF1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpCache.Test", "SharpCache.Test\SharpCache.Test.csproj", "{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{993FB00F-C925-428E-9EB3-679F3F98BF1B}.Release|Mixed Platforms.Build.0 = Release|x86
 		{993FB00F-C925-428E-9EB3-679F3F98BF1B}.Release|x86.ActiveCfg = Release|x86
 		{993FB00F-C925-428E-9EB3-679F3F98BF1B}.Release|x86.Build.0 = Release|x86
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B5D5E03E-5468-40B7-A452-5AAB7A06A1A8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

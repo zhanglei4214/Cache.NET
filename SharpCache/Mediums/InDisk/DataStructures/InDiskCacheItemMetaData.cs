@@ -3,11 +3,11 @@
     #region Using Directives
     #endregion
 
-    internal class InDiskCacheItemDigest
+    internal class InDiskCacheItemMetaData
     {
         #region Constructors
 
-        public InDiskCacheItemDigest()
+        public InDiskCacheItemMetaData()
         {
         }
 
@@ -15,9 +15,11 @@
 
         #region Properties
 
-        public int Offset { get; set; }
+        public long Offset { get; set; }
 
-        public int Length { get; set; }
+        public long Length { get; set; }
+
+        public long Capacity { get; set; }
 
         #endregion
     }
