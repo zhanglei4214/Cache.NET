@@ -59,11 +59,11 @@
         {
             InDiskCacheDigest digest = this.CreateOrGetCacheFileDigest(sector);
 
-            InDiskCacheItemMetaData item = this.CreateOrGetCacheItemDigest(digest, sector.Stub);
+            InDiskCacheItemMetaData meta = this.CreateOrGetCacheItemMetaData(digest, sector.Stub);
 
-            //// TODO: manipulate item 1) item is not ready, find a new place
-            ////                       2) item is there, space is enough, just set
-            ////                       3) item is there, but space is not enough, find a new place
+            //// TODO: manipulate meta 1) meta is not ready, find a new place
+            ////                       2) meta is there, space is enough, just set
+            ////                       3) meta is there, but space is not enough, find a new place
             throw new NotImplementedException();
         }
 
@@ -75,7 +75,7 @@
                 return true;
             }
 
-            this.ClearCacheItemDigest(digest, sector.Stub);
+            this.ClearCacheItemMetaData(digest, sector.Stub);
 
             return true;
         }
@@ -110,25 +110,25 @@
             return digest;
         }
 
-        private InDiskCacheItemMetaData CreateOrGetCacheItemDigest(InDiskCacheDigest digest, long index)
+        private InDiskCacheItemMetaData CreateOrGetCacheItemMetaData(InDiskCacheDigest digest, long index)
         {
-            InDiskCacheItemMetaData info;
-            if (digest.TryGet(index, out info) == false)
+            InDiskCacheItemMetaData meta;
+            if (digest.TryGet(index, out meta) == false)
             {
-                info = new InDiskCacheItemMetaData();
+                meta = new InDiskCacheItemMetaData();
             }
 
-            return info;
+            return meta;
         }
 
-        private void UpdateCacheItemDigest(InDiskCacheDigest digest, long index, long offset)
+        private void UpdateCacheItemMetaData(InDiskCacheDigest digest, long index, long offset)
         {
             throw new NotImplementedException();
         }
 
-        private void ClearCacheItemDigest(InDiskCacheDigest digest, long index)
+        private void ClearCacheItemMetaData(InDiskCacheDigest digest, long index)
         {
-            this.UpdateCacheItemDigest(digest, index, 0);
+            this.UpdateCacheItemMetaData(digest, index, 0);
         }
 
         #endregion
