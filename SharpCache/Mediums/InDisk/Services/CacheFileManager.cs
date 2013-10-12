@@ -8,6 +8,7 @@
     using SharpCache.Interfaces;
     using SharpCache.Mediums.InDisk.DataStructures;
     using SharpCache.Mediums.InDisk.Interfaces;
+    using SharpCache.Common;
     #endregion
 
     internal class CacheFileManager : ICacheFileManager
@@ -16,11 +17,9 @@
 
         private const string indexFile = "cache.idx";
 
-        private readonly ICache fileIndex;
+        private readonly InDiskCacheDigestSelector digestSelector;
 
         private readonly FileAllocator allocator;
-
-        private readonly Dictionary<int, string> fileDict;
 
         #endregion
 
@@ -30,27 +29,12 @@
         {
             this.allocator = new FileAllocator(cacheDir);
 
-            this.fileIndex = new Cache("__IN_DISK_INDEX_CACHE__", StandardInMemoryConfiguration.Create());
-
-            this.fileDict = new Dictionary<int, string>();
+            this.digestSelector = new InDiskCacheDigestSelector();
         }
 
         #endregion
 
         #region Properties
-
-        public ICache FileIndex
-        {
-            get
-            {
-                return this.fileIndex;
-            }
-        }
-
-        public FileStream FileStream
-        {
-            get { throw new NotImplementedException(); }
-        }
 
         #endregion
 
@@ -61,7 +45,7 @@
             throw new NotImplementedException();
         }
 
-        public FileSummary GetCacheFileSummary(System.IO.FileStream stream)
+        public InDiskCacheDigest GetCacheFileSummary(System.IO.FileStream stream)
         {
             throw new NotImplementedException();
         }
@@ -73,22 +57,78 @@
 
         public bool Set(PathSector sector, object value)
         {
-            FileStream stream = this.allocator.Find(sector);
+            InDiskCacheDigest digest = this.CreateOrGetCacheFileDigest(sector);
 
-            throw new NotSupportedException();
+            InDiskCacheItemDigest item = this.CreateOrGetCacheItemDigest(digest, sector.Stub);
+
+            //// TODO: manipulate item 1) item is not ready, find a new place
+            ////                       2) item is there, space is enough, just set
+            ////                       3) item is there, but space is not enough, find a new place
+            throw new NotImplementedException();
         }
 
-        public bool Remove(CacheKey key)
+        public bool Remove(PathSector sector)
         {
-            CacheValue value = this.FileIndex[key];
-            if (value == null)
+            InDiskCacheDigest digest = this.GetCacheFileDigest(sector);
+            if (digest == null)
             {
                 return true;
             }
 
-            this.FileIndex[key] = null;
+            this.ClearCacheItemDigest(digest, sector.Stub);
 
             return true;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private InDiskCacheDigest CreateOrGetCacheFileDigest(PathSector sector)
+        {
+            InDiskCacheDigest digest = this.GetCacheFileDigest(sector);
+            if (digest == null)
+            {
+                digest = new InDiskCacheDigest(this.allocator);
+
+                digest.Build(sector);
+
+                this.digestSelector[sector] = digest;
+            }
+
+            return digest;
+        }
+
+        private InDiskCacheDigest GetCacheFileDigest(PathSector sector)
+        {
+            InDiskCacheDigest digest = null;
+            if (this.digestSelector.TryGetValue(sector, out digest) == false)
+            {
+                digest = null;
+            }
+
+            return digest;
+        }
+
+        private InDiskCacheItemDigest CreateOrGetCacheItemDigest(InDiskCacheDigest digest, long index)
+        {
+            InDiskCacheItemDigest info;
+            if (digest.TryGet(index, out info) == false)
+            {
+                info = new InDiskCacheItemDigest();
+            }
+
+            return info;
+        }
+
+        private void UpdateCacheItemDigest(InDiskCacheDigest digest, long index, long offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClearCacheItemDigest(InDiskCacheDigest digest, long index)
+        {
+            this.UpdateCacheItemDigest(digest, index, 0);
         }
 
         #endregion

@@ -6,43 +6,33 @@
     using System.IO;
     using System.Runtime.Serialization;
     using SharpCache.Common;
+    using SharpCache.Mediums.InDisk.Services;
     #endregion
 
-    internal class FileSummary : ISerializable
+    internal class InDiskCacheDigest : ISerializable
     {
         #region Fields
 
-        private Dictionary<long, FileIndex> indexDict;
+        private readonly FileAllocator allocator;
 
+        private readonly InDiskCacheItemDigestMap indexMap;
+        
         private FileStream stream;
 
         #endregion
 
         #region Constructors
 
-        public FileSummary()
+        public InDiskCacheDigest(FileAllocator allocator)
         {
-            this.indexDict = new Dictionary<long, FileIndex>();
+            this.allocator = allocator;
+
+            this.indexMap = new InDiskCacheItemDigestMap();
         }
 
         #endregion
 
         #region Properties
-
-        public FileIndex this[CacheKey key]
-        {
-            get
-            {
-                Ensure.ArgumentNotNull(key, "key");
-
-                if (this.indexDict.ContainsKey(key.InternalIndex) == true)
-                {
-                    return this.indexDict[key.InternalIndex];
-                }
-
-                return null;
-            }
-        }
 
         public FileStream Stream
         {
@@ -61,9 +51,22 @@
 
         #region Public Methods
 
-        public static FileSummary Deserialize(byte[] bytes)
+        public static InDiskCacheDigest Deserialize(byte[] bytes)
         {
             throw new NotImplementedException();
+        }
+
+        public bool Build(PathSector sector)
+        {
+            this.Stream = this.allocator.GenerateCacheFile(sector);
+
+            //// TODO: load the index
+            throw new NotImplementedException();
+        }
+
+        public bool TryGet(long index, out InDiskCacheItemDigest info)
+        {
+            return this.indexMap.TryGet(index, out info);
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)

@@ -45,14 +45,7 @@
 
         protected override CacheValue DoGet(CacheKey key)
         {
-            string filePath = this.GetCacheFile(key);
-
-            if (string.IsNullOrEmpty(filePath) == true)
-            {
-                return null;
-            }
-
-            return this.GetFromFile(filePath, key);
+            throw new NotImplementedException();
         }
 
         protected override bool DoSet(CacheItem[] items)
@@ -69,7 +62,9 @@
 
         protected override bool DoRemove(CacheKey key)
         {
-            return this.fileManager.Remove(key);
+            PathSector sector = FileAllocator.Parse(key);
+
+            return this.fileManager.Remove(sector);
         }
 
         protected override void DoClear()
@@ -100,57 +95,6 @@
         #endregion
 
         #region Private Methods
-
-        private string GetCacheFile(CacheKey key)
-        {
-            return null;
-        }
-
-        private CacheValue GetFromFile(string path, CacheKey key)
-        {
-            CacheValue value = this.fileManager.FileIndex[path];
-            FileSummary summary = null;
-
-            if (value == null)
-            {
-                summary = this.GetFileSummary(path);
-
-                this.fileManager.FileIndex[path] = new CacheValue { Content = summary };
-            }
-
-            summary.Stream.Seek(summary[key].Offset, SeekOrigin.Begin);
-
-            byte[] valueInByte = new byte[summary[key].Length];
-            summary.Stream.Read(valueInByte, 0, summary[key].Length);
-
-            return CacheValue.Deserialize(valueInByte);
-        }
-
-        private FileSummary GetFileSummary(string path)
-        {
-            FileStream handler = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
-
-            Ensure.ArgumentNotNull(handler, "FileHandler");
-
-            byte[] summaryLenInByte = new byte[10];
-            handler.Seek(0, SeekOrigin.Begin);
-            handler.Read(summaryLenInByte, 0, 10);
-
-            int summaryLen = Toolkit.ConvertToIntegar(summaryLenInByte);
-
-            byte[] summaryInstance = new byte[summaryLen];
-            handler.Seek(10, SeekOrigin.Begin);
-            handler.Read(summaryLenInByte, 0, summaryLen);
-
-            FileSummary summary = FileSummary.Deserialize(summaryInstance);
-
-            Ensure.ArgumentNotNull(summary, "Summary");
-
-            summary.Stream = handler;
-
-            return summary;
-        }
-
 
         #endregion
     }

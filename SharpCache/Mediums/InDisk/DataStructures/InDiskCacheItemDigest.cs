@@ -3,11 +3,11 @@
     #region Using Directives
     #endregion
 
-    internal class FileIndex
+    internal class InDiskCacheItemDigest
     {
         #region Constructors
 
-        public FileIndex()
+        public InDiskCacheItemDigest()
         {
         }
 

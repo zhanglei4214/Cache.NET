@@ -4,6 +4,7 @@
     using System.IO;
     using SharpCache.Common;
     using SharpCache.Mediums.InDisk.DataStructures;
+    using System;
     #endregion
 
     internal class FileAllocator
@@ -42,7 +43,7 @@
             return new PathSector(top, second, stub);
         }
 
-        public FileStream Find(PathSector sector)
+        public FileStream GenerateCacheFile(PathSector sector)
         {
             FileStream handler = null;
 
@@ -71,7 +72,7 @@
             }
             else
             {
-                handler = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+                throw new Exception("file(" + path + ") already exists.");
             }
 
             return handler;
