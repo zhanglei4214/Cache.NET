@@ -18,14 +18,18 @@
 
         private readonly ICache fileIndex;
 
+        private readonly FileAllocator allocator;
+
         private readonly Dictionary<int, string> fileDict;
 
         #endregion
 
         #region Constructors
 
-        public CacheFileManager()
+        public CacheFileManager(string cacheDir)
         {
+            this.allocator = new FileAllocator(cacheDir);
+
             this.fileIndex = new Cache("__IN_DISK_INDEX_CACHE__", StandardInMemoryConfiguration.Create());
 
             this.fileDict = new Dictionary<int, string>();
@@ -69,7 +73,9 @@
 
         public bool Set(PathSector sector, object value)
         {
-            throw new NotImplementedException();
+            FileStream stream = this.allocator.Find(sector);
+
+            throw new NotSupportedException();
         }
 
         public bool Remove(CacheKey key)

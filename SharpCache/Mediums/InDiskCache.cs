@@ -18,8 +18,6 @@
 
         private const int BIG_FILE_SIZE = 10 * SMALL_FILE_SIZE;
 
-        private string cacheDir;
-
         private readonly ICacheFileManager fileManager;
 
         #endregion
@@ -29,27 +27,12 @@
         public InDiskCache(string name,CacheCapacity capacity, ILoggerFacade logger)
             : base(name, capacity, logger)
         {
-            this.cacheDir = Environment.CurrentDirectory;
-
-            this.fileManager = new CacheFileManager();
+            this.fileManager = new CacheFileManager(Environment.CurrentDirectory);
         }
 
         #endregion
 
         #region Properties
-
-        public string CacheDir
-        {
-            get
-            {
-                return this.cacheDir;
-            }
-
-            set
-            {
-                this.cacheDir = value;
-            }
-        }
 
         #endregion
 

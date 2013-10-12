@@ -7,17 +7,19 @@
     {
         #region Fields
 
-        private readonly int top;
+        private readonly long top;
 
-        private readonly int second;
+        private readonly long second;
 
-        private readonly int stub;
+        private readonly long third;
+
+        private readonly long stub;
 
         #endregion
 
         #region Constructors
 
-        public PathSector(int top, int second, int stub)
+        public PathSector(long top, long second, long stub)
         {
             this.top = top;
             this.second = second;
@@ -28,7 +30,7 @@
 
         #region Properties
 
-        public int Top
+        public long Top
         {
             get
             {
@@ -36,7 +38,7 @@
             }
         }
 
-        public int Second
+        public long Second
         {
             get
             {
@@ -44,7 +46,7 @@
             }
         }
 
-        public int Stub
+        public long Stub
         {
             get
             {
