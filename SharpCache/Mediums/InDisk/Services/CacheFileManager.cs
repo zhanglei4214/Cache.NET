@@ -40,11 +40,6 @@
 
         #region Public Methods
 
-        public string AnalyzeCacheFile(string path)
-        {
-            throw new NotImplementedException();
-        }
-
         public InDiskCacheDigest GetCacheFileSummary(System.IO.FileStream stream)
         {
             throw new NotImplementedException();
@@ -59,7 +54,7 @@
         {
             InDiskCacheDigest digest = this.CreateOrGetCacheFileDigest(sector);
 
-            InDiskCacheItemMetaData meta = this.CreateOrGetCacheItemMetaData(digest, sector.Stub);
+            InDiskCacheItemMetaData meta = this.CreateOrGetCacheItemMetaData(digest, sector.Last);
 
             //// TODO: manipulate meta 1) meta is not ready, find a new place
             ////                       2) meta is there, space is enough, just set
@@ -75,7 +70,7 @@
                 return true;
             }
 
-            this.ClearCacheItemMetaData(digest, sector.Stub);
+            this.ClearCacheItemMetaData(digest, sector.Last);
 
             return true;
         }
@@ -128,7 +123,7 @@
 
         private void ClearCacheItemMetaData(InDiskCacheDigest digest, long index)
         {
-            this.UpdateCacheItemMetaData(digest, index, 0);
+            digest.Remove(index);
         }
 
         #endregion

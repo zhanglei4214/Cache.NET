@@ -64,6 +64,16 @@
             throw new NotImplementedException();
         }
 
+        public void Remove(long index)
+        {
+            this.indexMap.Remove(index);
+        }
+
+        public bool TrySet(long index, out InDiskCacheItemMetaData meta)
+        {
+            return this.indexMap.TrySet(index, out meta);
+        }
+
         public bool TryGet(long index, out InDiskCacheItemMetaData info)
         {
             return this.indexMap.TryGet(index, out info);

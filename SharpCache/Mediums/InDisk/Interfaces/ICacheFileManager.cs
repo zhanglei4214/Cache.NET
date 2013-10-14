@@ -12,8 +12,6 @@
 
         bool Set(PathSector sector, object value);
 
-        string AnalyzeCacheFile(string path);
-
         InDiskCacheDigest GetCacheFileSummary(FileStream stream);
 
         CacheValue GetCacheValue(FileStream stream);

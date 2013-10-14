@@ -17,7 +17,17 @@ namespace SharpCache.Mediums.InDisk.DataStructures
 
         #region Public Methods
 
-        public bool TryGet(long index, out InDiskCacheItemMetaData info)
+        public bool TryGet(long index, out InDiskCacheItemMetaData meta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool TrySet(long index, out InDiskCacheItemMetaData meta)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(long index)
         {
             throw new NotImplementedException();
         }

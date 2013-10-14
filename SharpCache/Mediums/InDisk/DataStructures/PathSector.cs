@@ -10,10 +10,8 @@
         private readonly long top;
 
         private readonly long second;
-
-        private readonly long third;
-
-        private readonly long stub;
+        
+        private readonly long last;
 
         #endregion
 
@@ -23,7 +21,7 @@
         {
             this.top = top;
             this.second = second;
-            this.stub = stub;
+            this.last = stub;
         }
 
         #endregion
@@ -46,11 +44,11 @@
             }
         }
 
-        public long Stub
+        public long Last
         {
             get
             {
-                return this.stub;
+                return this.last;
             }
         }
 
