@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SharpCache.Mediums.InDisk.DataStructures
+﻿namespace SharpCache.Mediums.InDisk.DataStructures
 {
+    #region Using Directives
+    using System;
+    #endregion
+
     internal class InDiskCacheItemMetaDataMap
     {
         #region Constructors

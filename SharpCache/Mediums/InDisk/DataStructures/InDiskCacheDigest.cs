@@ -58,10 +58,9 @@
 
         public bool Build(PathSector sector)
         {
-            this.Stream = this.allocator.GenerateCacheFile(sector);
+            this.Stream = this.allocator.CreateCacheFile(sector);
 
-            //// TODO: load the index
-            throw new NotImplementedException();
+            return this.Stream == null ? false : true;
         }
 
         public void Remove(long index)
@@ -74,9 +73,9 @@
             return this.indexMap.TrySet(index, out meta);
         }
 
-        public bool TryGet(long index, out InDiskCacheItemMetaData info)
+        public bool TryGet(long index, out InDiskCacheItemMetaData meta)
         {
-            return this.indexMap.TryGet(index, out info);
+            return this.indexMap.TryGet(index, out meta);
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)

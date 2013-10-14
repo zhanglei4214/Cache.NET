@@ -43,7 +43,7 @@
             return new PathSector(top, second, stub);
         }
 
-        public FileStream GenerateCacheFile(PathSector sector)
+        public FileStream CreateCacheFile(PathSector sector)
         {
             FileStream handler = null;
 
@@ -72,7 +72,7 @@
             }
             else
             {
-                throw new Exception("file(" + path + ") already exists.");
+                handler = new FileStream(path, FileMode.Truncate, FileAccess.ReadWrite);
             }
 
             return handler;
