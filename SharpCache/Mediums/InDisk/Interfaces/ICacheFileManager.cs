@@ -1,12 +1,13 @@
 ﻿namespace SharpCache.Mediums.InDisk.Interfaces
 {
     #region Using Directives
+    using System;
     using System.IO;
     using SharpCache.Interfaces;
     using SharpCache.Mediums.InDisk.DataStructures;
     #endregion
 
-    internal interface ICacheFileManager
+    internal interface ICacheFileManager : IDisposable
     {
         bool Remove(IHashable index);
 

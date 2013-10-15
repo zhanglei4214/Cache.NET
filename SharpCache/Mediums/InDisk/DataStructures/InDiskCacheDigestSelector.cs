@@ -7,7 +7,7 @@
     using SharpCache.Interfaces;
     #endregion
 
-    internal class InDiskCacheDigestSelector 
+    internal class InDiskCacheDigestSelector : IDisposable
     {
         #region Fields
 
@@ -82,6 +82,18 @@
             return digest;
         }
 
+        public void Dispose()
+        {
+            foreach (InDiskCacheDigest digest in this.digests.Values)
+            {
+                digest.Dispose();
+            }
+
+            this.digests.Clear();
+
+            this.router.Clear();
+        }
+
         #endregion
 
         private InDiskCacheType CalculateCacheType(int length)
@@ -150,6 +162,6 @@
         private InDiskCacheDigest CreateInDiskCache(InDiskCacheType type)
         {
             return new InDiskCacheDigest(type, this.CacheDirectory);
-        }
+        }        
     }
 }

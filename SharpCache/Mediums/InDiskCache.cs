@@ -10,7 +10,7 @@
     using SharpCache.Mediums.InDisk.Services;
     #endregion
 
-    internal class InDiskCache : CacheMediumBase
+    internal class InDiskCache : CacheMediumBase, IDisposable
     {
         #region Fields
 
@@ -29,6 +29,15 @@
         #endregion
 
         #region Properties
+
+        #endregion
+
+        #region Public Methods
+
+        public void Dispose()
+        {
+            this.fileManager.Dispose();
+        }
 
         #endregion
 

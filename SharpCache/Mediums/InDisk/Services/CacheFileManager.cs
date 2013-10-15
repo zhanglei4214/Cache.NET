@@ -69,6 +69,11 @@
             return true;
         }
 
+        public void Dispose()
+        {
+            this.digestSelector.Dispose();
+        }
+
         #endregion
 
         #region Private Methods
