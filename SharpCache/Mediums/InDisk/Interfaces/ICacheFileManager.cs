@@ -8,9 +8,9 @@
 
     internal interface ICacheFileManager
     {
-        bool Remove(PathSector sector);
+        bool Remove(IHashable index);
 
-        bool Set(PathSector sector, object value);
+        bool Set(IHashable index, CacheItemMetaData meta, byte[] value);
 
         InDiskCacheDigest GetCacheFileSummary(FileStream stream);
 

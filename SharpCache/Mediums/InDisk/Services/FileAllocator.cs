@@ -30,54 +30,6 @@
 
         #region Public Methods
 
-        public static PathSector Parse(CacheKey key)
-        {
-            Ensure.ArgumentNotNull(key, "key");
-
-            long top, second, stub;
-            if (Divide(key.InternalIndex, out top, out second, out stub) == false)
-            {
-                return null;
-            }
-
-            return new PathSector(top, second, stub);
-        }
-
-        public FileStream CreateCacheFile(PathSector sector)
-        {
-            FileStream handler = null;
-
-            string path = this.cacheDirBase;
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            path = Path.Combine(this.cacheDirBase,sector.Top.ToString());
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            path = Path.Combine(path, sector.Second.ToString());
-            if (Directory.Exists(path) == false)
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            path = Path.Combine(path, CACHE_STUB);
-            if (File.Exists(path) == false)
-            {
-                handler = File.Create(path);
-            }
-            else
-            {
-                handler = new FileStream(path, FileMode.Truncate, FileAccess.ReadWrite);
-            }
-
-            return handler;
-        }
-
         #endregion
 
         #region Private Methods

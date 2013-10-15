@@ -2,9 +2,11 @@
 {
     #region Using Directives
     using System;
+    using System.Runtime.Serialization;
+    using SharpCache.Common.Serialization;
     #endregion
 
-    public class CacheValue
+    public class CacheValue : ISerializableCache
     {
         #region Fields
 
@@ -55,7 +57,17 @@
 
         #region Public Methods
 
-        public static CacheValue Deserialize(byte[] bytes)
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public byte[] Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ISerializableCache Deserialize(byte[] value)
         {
             throw new NotImplementedException();
         }

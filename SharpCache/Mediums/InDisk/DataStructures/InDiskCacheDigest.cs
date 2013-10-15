@@ -7,9 +7,10 @@
     using System.Runtime.Serialization;
     using SharpCache.Common;
     using SharpCache.Mediums.InDisk.Services;
+    using SharpCache.Interfaces;
     #endregion
 
-    internal class InDiskCacheDigest : ISerializable
+    internal class InDiskCacheDigest 
     {
         #region Fields
 
@@ -51,34 +52,12 @@
 
         #region Public Methods
 
-        public static InDiskCacheDigest Deserialize(byte[] bytes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Build(PathSector sector)
-        {
-            this.Stream = this.allocator.CreateCacheFile(sector);
-
-            return this.Stream == null ? false : true;
-        }
-
         public void Remove(long index)
         {
             this.indexMap.Remove(index);
         }
 
-        public bool TrySet(long index, out InDiskCacheItemMetaData meta)
-        {
-            return this.indexMap.TrySet(index, out meta);
-        }
-
-        public bool TryGet(long index, out InDiskCacheItemMetaData meta)
-        {
-            return this.indexMap.TryGet(index, out meta);
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public bool Set(IHashable index, CacheItemMetaData meta, byte[] value)
         {
             throw new NotImplementedException();
         }

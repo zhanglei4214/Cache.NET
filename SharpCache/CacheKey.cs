@@ -6,10 +6,11 @@
     using System.Runtime.Serialization.Formatters.Binary;
     using System.Text;
     using SharpCache.Hash;
+    using SharpCache.Interfaces;
     #endregion
 
     [Serializable]
-    public class CacheKey
+    public class CacheKey : IHashable
     {
         #region Fields
 
@@ -76,6 +77,11 @@
         public override string ToString()
         {
             return "CacheKey: " + this.InternalIndex.ToString();
+        }
+
+        public long Hash()
+        {
+            return this.InternalIndex;
         }
 
         /// <summary>

@@ -50,27 +50,27 @@
             throw new NotImplementedException();
         }
 
-        public bool Set(PathSector sector, object value)
+        public bool Set(IHashable index, CacheItemMetaData meta, byte[] value)
         {
-            InDiskCacheDigest digest = this.CreateOrGetCacheFileDigest(sector);
+            InDiskCacheDigest digest = this.digestSelector.Get(index);
 
-            InDiskCacheItemMetaData meta = this.CreateOrGetCacheItemMetaData(digest, sector.Last);
+            if (digest == null)
+            {
+                digest = this.digestSelector.Insert(index, value.LongLength);
+            }
 
-            //// TODO: manipulate meta 1) meta is not ready, find a new place
-            ////                       2) meta is there, space is enough, just set
-            ////                       3) meta is there, but space is not enough, find a new place
-            throw new NotImplementedException();
+            return digest.Set(index, meta, value);
         }
 
-        public bool Remove(PathSector sector)
+        public bool Remove(IHashable index)
         {
-            InDiskCacheDigest digest = this.GetCacheFileDigest(sector);
+            InDiskCacheDigest digest = this.digestSelector.Get(index);
             if (digest == null)
             {
                 return true;
             }
 
-            this.ClearCacheItemMetaData(digest, sector.Last);
+            this.digestSelector.Remove(index);
 
             return true;
         }
@@ -78,53 +78,6 @@
         #endregion
 
         #region Private Methods
-
-        private InDiskCacheDigest CreateOrGetCacheFileDigest(PathSector sector)
-        {
-            InDiskCacheDigest digest = this.GetCacheFileDigest(sector);
-            if (digest == null)
-            {
-                digest = new InDiskCacheDigest(this.allocator);
-
-                digest.Build(sector);
-
-                this.digestSelector[sector] = digest;
-            }
-
-            return digest;
-        }
-
-        private InDiskCacheDigest GetCacheFileDigest(PathSector sector)
-        {
-            InDiskCacheDigest digest = null;
-            if (this.digestSelector.TryGetValue(sector, out digest) == false)
-            {
-                digest = null;
-            }
-
-            return digest;
-        }
-
-        private InDiskCacheItemMetaData CreateOrGetCacheItemMetaData(InDiskCacheDigest digest, long index)
-        {
-            InDiskCacheItemMetaData meta;
-            if (digest.TryGet(index, out meta) == false)
-            {
-                meta = new InDiskCacheItemMetaData();
-            }
-
-            return meta;
-        }
-
-        private void UpdateCacheItemMetaData(InDiskCacheDigest digest, long index, long offset)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ClearCacheItemMetaData(InDiskCacheDigest digest, long index)
-        {
-            digest.Remove(index);
-        }
 
         #endregion
     }

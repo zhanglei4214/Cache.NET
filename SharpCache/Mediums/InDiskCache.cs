@@ -14,10 +14,6 @@
     {
         #region Fields
 
-        private const int SMALL_FILE_SIZE = 2 * 1024 * 1024;
-
-        private const int BIG_FILE_SIZE = 10 * SMALL_FILE_SIZE;
-
         private readonly ICacheFileManager fileManager;
 
         #endregion
@@ -52,19 +48,15 @@
         {
             foreach (CacheItem item in items)
             {
-                PathSector sector = FileAllocator.Parse(item.Key);
-
-                return this.fileManager.Set(sector, item.Value);
+                return this.fileManager.Set(item.Key, item.Value.MetaData, item.Value.Serialize());
             }
 
             return true;
         }
 
         protected override bool DoRemove(CacheKey key)
-        {
-            PathSector sector = FileAllocator.Parse(key);
-
-            return this.fileManager.Remove(sector);
+        {            
+            return this.fileManager.Remove(key);
         }
 
         protected override void DoClear()
