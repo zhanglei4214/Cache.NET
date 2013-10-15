@@ -53,7 +53,7 @@
                 digest = this.digestSelector.AddNew(index, value.Length);
             }
 
-            return digest.Set(index, meta, value);
+            return digest.Set(index, value);
         }
 
         public bool Remove(IHashable index)

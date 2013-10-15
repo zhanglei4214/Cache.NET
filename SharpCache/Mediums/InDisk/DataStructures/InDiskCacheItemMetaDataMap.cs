@@ -2,6 +2,7 @@
 {
     #region Using Directives
     using System;
+    using SharpCache.Interfaces;
     #endregion
 
     internal class InDiskCacheItemMetaDataMap
@@ -15,6 +16,11 @@
         #endregion
 
         #region Public Methods
+
+        public InDiskCacheItemMetaData FindFree(IHashable index)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool TryGet(long index, out InDiskCacheItemMetaData meta)
         {

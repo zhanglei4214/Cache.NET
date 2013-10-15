@@ -40,9 +40,17 @@
             this.indexMap.Remove(index);
         }
 
-        public bool Set(IHashable index, CacheItemMetaData meta, byte[] value)
+        public bool Set(IHashable index, byte[] value)
         {
-            throw new NotImplementedException();
+            InDiskCacheItemMetaData meta = this.indexMap.FindFree(index);
+
+            //// TODO: needs more protect code.
+
+            this.stream.Seek(meta.Length, SeekOrigin.Begin);
+
+            this.stream.Write(value, 0, value.Length);
+
+            return true;
         }
 
         #endregion
