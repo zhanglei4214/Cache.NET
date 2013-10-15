@@ -56,7 +56,7 @@
 
             if (digest == null)
             {
-                digest = this.digestSelector.Insert(index, value.LongLength);
+                digest = this.digestSelector.Insert(index, value.Length);
             }
 
             return digest.Set(index, meta, value);
