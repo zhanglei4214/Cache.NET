@@ -2,31 +2,27 @@
 {
     #region Using Directives
     using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Runtime.Serialization;
-    using SharpCache.Common;
-    using SharpCache.Mediums.InDisk.Services;
     using SharpCache.Interfaces;
     #endregion
 
-    internal class InDiskCacheDigest 
+    internal class InDiskCacheDigest : IDisposable
     {
         #region Fields
 
-        private readonly FileAllocator allocator;
-
         private readonly InDiskCacheItemMetaDataMap indexMap;
-        
+
         private FileStream stream;
+
+        private object fileLock = new object();
 
         #endregion
 
         #region Constructors
 
-        public InDiskCacheDigest(FileAllocator allocator)
+        public InDiskCacheDigest(InDiskCacheType type, string dir)
         {
-            this.allocator = allocator;
+            this.stream = this.CreateCacheFile(dir, type);
 
             this.indexMap = new InDiskCacheItemMetaDataMap();
         }
@@ -34,19 +30,6 @@
         #endregion
 
         #region Properties
-
-        public FileStream Stream
-        {
-            get
-            {
-                return this.stream;
-            }
-
-            set
-            {
-                this.stream = value;
-            }
-        }
 
         #endregion
 
@@ -63,5 +46,33 @@
         }
 
         #endregion
+
+        private FileStream CreateCacheFile(string dir, InDiskCacheType type)
+        {
+            lock (this.fileLock)
+            {
+                if (Directory.Exists(dir) == false)
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                string path = Path.Combine(dir, type.ToString());
+
+                return new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
+            }
+        }
+
+        public void Dispose()
+        {
+            lock (this.fileLock)
+            {
+                if (this.stream != null)
+                {
+                    this.stream.Close();
+
+                    this.stream = null;
+                }
+            }
+        }
     }
 }

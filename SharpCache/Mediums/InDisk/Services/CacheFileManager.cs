@@ -15,21 +15,15 @@
     {
         #region Fields
 
-        private const string indexFile = "cache.idx";
-
-        private readonly InDiskCacheDigestSelector digestSelector;
-
-        private readonly FileAllocator allocator;
+        private readonly InDiskCacheDigestSelector digestSelector;       
 
         #endregion
 
         #region Constructors
 
         public CacheFileManager(string cacheDir)
-        {
-            this.allocator = new FileAllocator(cacheDir);
-
-            this.digestSelector = new InDiskCacheDigestSelector();
+        {            
+            this.digestSelector = new InDiskCacheDigestSelector(cacheDir);
         }
 
         #endregion
@@ -56,7 +50,7 @@
 
             if (digest == null)
             {
-                digest = this.digestSelector.Insert(index, value.Length);
+                digest = this.digestSelector.AddNew(index, value.Length);
             }
 
             return digest.Set(index, meta, value);

@@ -1,9 +1,10 @@
 ﻿namespace SharpCache.Mediums.InDisk.DataStructures
 {
     #region Using Directives
-    using System.Collections.Generic;
-    using SharpCache.Interfaces;
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using SharpCache.Interfaces;
     #endregion
 
     internal class InDiskCacheDigestSelector 
@@ -14,12 +15,16 @@
 
         private readonly Dictionary<InDiskCacheType, InDiskCacheDigest> digests;
 
+        private readonly string cacheDir;
+
         #endregion
 
         #region Constructors
 
-        public InDiskCacheDigestSelector()
+        public InDiskCacheDigestSelector(string cacheDir)
         {
+            this.cacheDir = Path.Combine(cacheDir, "IN_DISK_CACHE");
+
             this.router = new Dictionary<IHashable,InDiskCacheType>();
 
             this.digests = new Dictionary<InDiskCacheType, InDiskCacheDigest>();
@@ -28,6 +33,14 @@
         #endregion
 
         #region Properties
+
+        public string CacheDirectory
+        {
+            get
+            {
+                return this.cacheDir;
+            }
+        }
 
         #endregion
 
@@ -49,7 +62,7 @@
             return null;
         }
 
-        public InDiskCacheDigest Insert(IHashable index, int length)
+        public InDiskCacheDigest AddNew(IHashable index, int length)
         {
             InDiskCacheDigest digest;
             InDiskCacheType type = this.CalculateCacheType(length);
@@ -136,8 +149,7 @@
 
         private InDiskCacheDigest CreateInDiskCache(InDiskCacheType type)
         {
-            //// TODO: create in disk cache based on the type;
-            throw new System.NotImplementedException();
+            return new InDiskCacheDigest(type, this.CacheDirectory);
         }
     }
 }

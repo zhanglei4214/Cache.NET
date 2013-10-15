@@ -88,7 +88,6 @@
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemMetaDataMap.cs" />
     <Compile Include="Mediums\InDisk\InDiskCacheType.cs" />
     <Compile Include="Mediums\InDisk\Services\CacheFileManager.cs" />
-    <Compile Include="Mediums\InDisk\Services\FileAllocator.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheItemMetaData.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheDigest.cs" />
     <Compile Include="Mediums\InDisk\Interfaces\ICacheFileManager.cs" />
