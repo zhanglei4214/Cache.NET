@@ -3,12 +3,19 @@
     #region Using Directives
     #endregion
 
-    internal class InDiskCacheItemMetaData
+    internal class InDiskIndex
     {
+        #region Fields
+
+        private readonly int capacity;
+
+        #endregion
+
         #region Constructors
 
-        public InDiskCacheItemMetaData()
+        public InDiskIndex(int capacity)
         {
+            this.capacity = capacity;
         }
 
         #endregion
@@ -17,9 +24,7 @@
 
         public long Offset { get; set; }
 
-        public long Length { get; set; }
-
-        public long Capacity { get; set; }
+        public int Length { get; set; }
 
         #endregion
     }

@@ -2,10 +2,7 @@
 {
     #region Using Directives
     using System;
-    using System.IO;
     using Microsoft.Practices.Prism.Logging;
-    using SharpCache.Common;
-    using SharpCache.Mediums.InDisk.DataStructures;
     using SharpCache.Mediums.InDisk.Interfaces;
     using SharpCache.Mediums.InDisk.Services;
     #endregion
@@ -14,7 +11,7 @@
     {
         #region Fields
 
-        private readonly ICacheFileManager fileManager;
+        private readonly IInDiskCacheManager cacheManager;
 
         #endregion
 
@@ -23,7 +20,7 @@
         public InDiskCache(string name,CacheCapacity capacity, ILoggerFacade logger)
             : base(name, capacity, logger)
         {
-            this.fileManager = new CacheFileManager(Environment.CurrentDirectory);
+            this.cacheManager = new GeneralInDiskCacheManager(Environment.CurrentDirectory);
         }
 
         #endregion
@@ -36,7 +33,7 @@
 
         public void Dispose()
         {
-            this.fileManager.Dispose();
+            this.cacheManager.Dispose();
         }
 
         #endregion
@@ -57,7 +54,7 @@
         {
             foreach (CacheItem item in items)
             {
-                return this.fileManager.Set(item.Key, item.Value.MetaData, item.Value.Serialize());
+                return this.cacheManager.Set(item.Key, item.Value.MetaData, item.Value.Serialize());
             }
 
             return true;
@@ -65,7 +62,7 @@
 
         protected override bool DoRemove(CacheKey key)
         {            
-            return this.fileManager.Remove(key);
+            return this.cacheManager.Remove(key);
         }
 
         protected override void DoClear()

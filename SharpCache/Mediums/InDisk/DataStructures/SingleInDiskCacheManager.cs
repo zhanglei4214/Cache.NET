@@ -1,17 +1,18 @@
 ﻿namespace SharpCache.Mediums.InDisk.DataStructures
 {
     #region Using Directives
-    using System;
     using System.IO;
     using SharpCache.Common;
     using SharpCache.Interfaces;
+    using SharpCache.Mediums.InDisk.Interfaces;
+    using SharpCache.Mediums.InDisk.Services;
     #endregion
 
-    internal class InDiskCacheDigest : IDisposable
+    internal class SingleInDiskCacheManager : IInDiskCacheManager
     {
         #region Fields
 
-        private readonly InDiskCacheItemMetaDataMap indexMap;
+        private readonly InDiskIndexOperator indexOperator;
 
         private FileStream stream;
 
@@ -21,11 +22,11 @@
 
         #region Constructors
 
-        public InDiskCacheDigest(InDiskCacheType type, string dir)
+        public SingleInDiskCacheManager(InDiskCacheType type, string dir)
         {
             this.stream = this.CreateCacheFile(dir, type);
 
-            this.indexMap = new InDiskCacheItemMetaDataMap();
+            this.indexOperator = new InDiskIndexOperator((int)type);
         }
 
         #endregion
@@ -36,18 +37,18 @@
 
         #region Public Methods
 
-        public void Remove(long index)
+        public bool Remove(IHashable key)
         {
-            this.indexMap.Remove(index);
+            return this.indexOperator.Remove(key);
         }
 
-        public bool Set(IHashable index, byte[] value)
+        public bool Set(IHashable key, CacheItemMetaData meta, byte[] value)
         {
             Ensure.ArgumentNotNull(value, "value");
 
-            InDiskCacheItemMetaData meta = this.indexMap.FindFree(index);
+            InDiskIndex index = this.indexOperator.FindFree(key);
 
-            return this.WriteToFile(meta.Offset, value, value.Length);
+            return this.WriteToFile(index.Offset, value, value.Length);
         }
 
         #endregion

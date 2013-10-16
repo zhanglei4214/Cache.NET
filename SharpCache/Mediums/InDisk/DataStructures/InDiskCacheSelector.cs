@@ -5,15 +5,16 @@
     using System.Collections.Generic;
     using System.IO;
     using SharpCache.Interfaces;
+    using SharpCache.Mediums.InDisk.Interfaces;
     #endregion
 
-    internal class InDiskCacheDigestSelector : IDisposable
+    internal class InDiskCacheSelector : IDisposable
     {
         #region Fields
 
         private readonly Dictionary<IHashable, InDiskCacheType> router;
 
-        private readonly Dictionary<InDiskCacheType, InDiskCacheDigest> digests;
+        private readonly Dictionary<InDiskCacheType, IInDiskCacheManager> cacheManagerDict;
 
         private readonly string cacheDir;
 
@@ -21,13 +22,13 @@
 
         #region Constructors
 
-        public InDiskCacheDigestSelector(string cacheDir)
+        public InDiskCacheSelector(string cacheDir)
         {
             this.cacheDir = Path.Combine(cacheDir, "IN_DISK_CACHE");
 
             this.router = new Dictionary<IHashable,InDiskCacheType>();
 
-            this.digests = new Dictionary<InDiskCacheType, InDiskCacheDigest>();
+            this.cacheManagerDict = new Dictionary<InDiskCacheType, IInDiskCacheManager>();
         }
 
         #endregion
@@ -46,50 +47,50 @@
 
         #region Public Methods
 
-        public bool Remove(IHashable index)
+        public bool Remove(IHashable key)
         {
-            return this.router.Remove(index);
+            return this.router.Remove(key);
         }
 
-        public InDiskCacheDigest Get(IHashable index)
+        public IInDiskCacheManager Get(IHashable key)
         {
             InDiskCacheType type;
-            if (this.router.TryGetValue(index, out type) == true)
+            if (this.router.TryGetValue(key, out type) == true)
             {
-                return this.digests[type];
+                return this.cacheManagerDict[type];
             }
 
             return null;
         }
 
-        public InDiskCacheDigest AddNew(IHashable index, int length)
+        public IInDiskCacheManager AddNew(IHashable key, int length)
         {
-            InDiskCacheDigest digest;
+            IInDiskCacheManager cacheManager;
             InDiskCacheType type = this.CalculateCacheType(length);
-            if (this.digests.ContainsKey(type) == false)
+            if (this.cacheManagerDict.ContainsKey(type) == false)
             {
-                digest = this.CreateInDiskCache(type);
+                cacheManager = this.CreateInDiskCache(type);
 
-                this.digests[type] = digest;
+                this.cacheManagerDict[type] = cacheManager;
             }
             else
             {
-                digest = this.digests[type];
+                cacheManager = this.cacheManagerDict[type];
             }
 
-            this.router[index] = type;
+            this.router[key] = type;
 
-            return digest;
+            return cacheManager;
         }
 
         public void Dispose()
         {
-            foreach (InDiskCacheDigest digest in this.digests.Values)
+            foreach (SingleInDiskCacheManager digest in this.cacheManagerDict.Values)
             {
                 digest.Dispose();
             }
 
-            this.digests.Clear();
+            this.cacheManagerDict.Clear();
 
             this.router.Clear();
         }
@@ -159,9 +160,9 @@
             }
         }
 
-        private InDiskCacheDigest CreateInDiskCache(InDiskCacheType type)
+        private IInDiskCacheManager CreateInDiskCache(InDiskCacheType type)
         {
-            return new InDiskCacheDigest(type, this.CacheDirectory);
+            return new SingleInDiskCacheManager(type, this.CacheDirectory);
         }        
     }
 }
