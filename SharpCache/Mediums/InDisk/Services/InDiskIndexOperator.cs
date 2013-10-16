@@ -35,7 +35,8 @@
 
         public InDiskIndex FindFree(IHashable key)
         {
-            throw new NotImplementedException();
+            //// TODO: this is a wrong logic.
+            return this.digestInDict[key].Value;
         }
 
         public bool TryGet(long index, out InDiskIndex meta)

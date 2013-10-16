@@ -64,12 +64,12 @@
 
         public byte[] Serialize()
         {
-            throw new NotImplementedException();
+            return this.metaData.Serializer(this.content);
         }
 
         public ISerializableCache Deserialize(byte[] value)
         {
-            throw new NotImplementedException();
+            return this.metaData.Deserializer(value);
         }
 
         public bool IsExpired()

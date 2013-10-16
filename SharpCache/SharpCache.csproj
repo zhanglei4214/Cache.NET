@@ -55,6 +55,7 @@
     <Compile Include="CacheConfiguration.cs" />
     <Compile Include="Common\Ensure.cs" />
     <Compile Include="Common\Serialization\ISerializableCache.cs" />
+    <Compile Include="Common\Serialization\StandardSerializator.cs" />
     <Compile Include="Common\Toolkit.cs" />
     <Compile Include="Config\CacheConfigurationBuilder.cs" />
     <Compile Include="CacheItem.cs" />

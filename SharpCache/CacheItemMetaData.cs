@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
+    using SharpCache.Common.Serialization;
     #endregion
 
     [Serializable]
@@ -68,6 +69,10 @@
             this.priority = priority;
 
             this.discription = new Dictionary<string, string>();
+
+            this.Serializer = StandardSerializator.Serialize;
+
+            this.Deserializer = StandardSerializator.Deserialize;
         }
 
         #endregion
@@ -132,6 +137,10 @@
                 this.discription = value;
             }
         }
+
+        public Serializer Serializer { get; set; }
+
+        public Deserializer Deserializer { get; set; }
 
         #endregion
 
