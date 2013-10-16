@@ -3,6 +3,7 @@
     #region Using Directives
     using System;
     using System.IO;
+    using SharpCache.Common;
     using SharpCache.Interfaces;
     #endregion
 
@@ -42,15 +43,11 @@
 
         public bool Set(IHashable index, byte[] value)
         {
+            Ensure.ArgumentNotNull(value, "value");
+
             InDiskCacheItemMetaData meta = this.indexMap.FindFree(index);
 
-            //// TODO: needs more protect code.
-
-            this.stream.Seek(meta.Length, SeekOrigin.Begin);
-
-            this.stream.Write(value, 0, value.Length);
-
-            return true;
+            return this.WriteToFile(meta.Offset, value, value.Length);
         }
 
         #endregion
@@ -68,6 +65,23 @@
 
                 return new FileStream(path, FileMode.Create, FileAccess.ReadWrite);
             }
+        }
+
+        private bool WriteToFile(long offset, byte[] value, int count)
+        {
+            try
+            {
+                this.stream.Seek(offset, SeekOrigin.Begin);
+
+                this.stream.Write(value, 0, count);
+            }
+            catch
+            {
+                //// TODO: log the exception.
+                return false;
+            }
+
+            return true;
         }
 
         public void Dispose()
