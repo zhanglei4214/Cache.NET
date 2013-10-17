@@ -7,26 +7,31 @@
     using SharpCache.Mediums.InDisk.DataStructures;
     #endregion
 
-    internal class InDiskIndexOperator
+    internal class InDiskIndexManager
     {
         #region Fields
 
         private readonly int capacity;
 
-        private Dictionary<IHashable, LinkedListNode<InDiskIndex>> digestInDict;
+        private Dictionary<IHashable, LinkedListNode<InDiskIndex>> inUseIndexInDict;
 
-        private LinkedList<InDiskIndex> digestInList;
+        private LinkedList<InDiskIndex> inUseIndexInList;
+
+        private LinkedList<InDiskIndex> emptyIndexInList;
 
         #endregion
 
         #region Constructors
 
-        public InDiskIndexOperator(int capacity)
+        public InDiskIndexManager(int capacity)
         {
             this.capacity = capacity;
 
-            this.digestInDict = new Dictionary<IHashable, LinkedListNode<InDiskIndex>>();
-            this.digestInList = new LinkedList<InDiskIndex>();
+            this.inUseIndexInDict = new Dictionary<IHashable, LinkedListNode<InDiskIndex>>();
+
+            this.inUseIndexInList = new LinkedList<InDiskIndex>();
+
+            this.emptyIndexInList = new LinkedList<InDiskIndex>();
         }
 
         #endregion
@@ -36,7 +41,7 @@
         public InDiskIndex FindFree(IHashable key)
         {
             //// TODO: this is a wrong logic.
-            return this.digestInDict[key].Value;
+            return this.inUseIndexInDict[key].Value;
         }
 
         public bool TryGet(long index, out InDiskIndex meta)

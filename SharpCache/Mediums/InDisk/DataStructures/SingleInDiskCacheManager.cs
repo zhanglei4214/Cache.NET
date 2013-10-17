@@ -12,7 +12,7 @@
     {
         #region Fields
 
-        private readonly InDiskIndexOperator indexOperator;
+        private readonly InDiskIndexManager indexManager;
 
         private FileStream stream;
 
@@ -26,7 +26,7 @@
         {
             this.stream = this.CreateCacheFile(dir, type);
 
-            this.indexOperator = new InDiskIndexOperator((int)type);
+            this.indexManager = new InDiskIndexManager((int)type);
         }
 
         #endregion
@@ -39,14 +39,14 @@
 
         public bool Remove(IHashable key)
         {
-            return this.indexOperator.Remove(key);
+            return this.indexManager.Remove(key);
         }
 
         public bool Set(IHashable key, CacheItemMetaData meta, byte[] value)
         {
             Ensure.ArgumentNotNull(value, "value");
 
-            InDiskIndex index = this.indexOperator.FindFree(key);
+            InDiskIndex index = this.indexManager.FindFree(key);
 
             return this.WriteToFile(index.Offset, value, value.Length);
         }

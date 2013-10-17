@@ -86,7 +86,8 @@
     <Compile Include="Mediums\CacheMediumType.cs" />
     <Compile Include="Mediums\InDiskCache.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskCacheSelector.cs" />
-    <Compile Include="Mediums\InDisk\Services\InDiskIndexOperator.cs" />
+    <Compile Include="Mediums\InDisk\DataStructures\ConsecutiveInDiskEmplyIndexBlock.cs" />
+    <Compile Include="Mediums\InDisk\Services\InDiskIndexManager.cs" />
     <Compile Include="Mediums\InDisk\InDiskCacheType.cs" />
     <Compile Include="Mediums\InDisk\Services\GeneralInDiskCacheManager.cs" />
     <Compile Include="Mediums\InDisk\DataStructures\InDiskIndex.cs" />
