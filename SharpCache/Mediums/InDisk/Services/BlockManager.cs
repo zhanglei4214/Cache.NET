@@ -71,7 +71,31 @@
             {
                 this.RemoveCurrentBlock(current);
             }
-            //// TODO: update the block info or split the block
+            else
+            {
+                int first1 = current.Value.First;
+                int last1 = number - 1;
+
+                int first2 = number + 1;
+                int last2 = current.Value.Last;
+
+                if (first1 <= last1 && first2 <= last2)
+                {
+                    this.SplitCurrentBlock(current, first1, last1, first2, last2);
+                }
+                else if (first1 > last1)
+                {
+                    this.UpdateCurrentBlock(current, first2, last2);
+                }
+                else if (first2 > last2)
+                {
+                    this.UpdateCurrentBlock(current, first1, last1);
+                }
+                else
+                {
+                    throw new Exception("can never reach here.");
+                }
+            }
 
             return number;
         }
@@ -79,6 +103,20 @@
         private void RemoveCurrentBlock(LinkedListNode<Block> block)
         {
             this.blocks.Remove(block);
+        }
+
+        private void SplitCurrentBlock(LinkedListNode<Block> block, int first1, int last1, int first2, int last2)
+        {
+            block.Value.First = first1;
+            block.Value.Last = last1;
+
+            this.blocks.AddAfter(block, new Block(first2,last2));
+        }
+
+        private void UpdateCurrentBlock(LinkedListNode<Block> block, int first, int last)
+        {
+            block.Value.First = first;
+            block.Value.Last = last;
         }
 
         #endregion
