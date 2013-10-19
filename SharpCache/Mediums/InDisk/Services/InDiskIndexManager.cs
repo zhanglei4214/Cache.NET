@@ -11,45 +11,39 @@
     {
         #region Fields
 
-        private readonly int capacity;
+        private BlockManager usedManager;
 
-        private Dictionary<IHashable, LinkedListNode<InDiskIndex>> inUseIndexInDict;
-
-        private LinkedList<InDiskIndex> inUseIndexInList;
-
-        private LinkedList<InDiskIndex> emptyIndexInList;
+        private BlockManager emptyManager;
 
         #endregion
 
         #region Constructors
 
-        public InDiskIndexManager(int capacity)
+        public InDiskIndexManager()
         {
-            this.capacity = capacity;
+            this.usedManager = new BlockManager();
 
-            this.inUseIndexInDict = new Dictionary<IHashable, LinkedListNode<InDiskIndex>>();
-
-            this.inUseIndexInList = new LinkedList<InDiskIndex>();
-
-            this.emptyIndexInList = new LinkedList<InDiskIndex>();
+            this.emptyManager = new BlockManager();
         }
 
         #endregion
 
         #region Public Methods
 
-        public InDiskIndex FindFree(IHashable key)
+        public int FindFree()
         {
-            //// TODO: this is a wrong logic.
-            return this.inUseIndexInDict[key].Value;
+            int index = this.emptyManager.First();
+            this.usedManager.Set(index);
+
+            return index;
         }
 
-        public bool TryGet(long index, out InDiskIndex meta)
+        public bool TryGet(long index, out int meta)
         {
             throw new NotImplementedException();
         }
 
-        public bool TrySet(long index, out InDiskIndex meta)
+        public bool TrySet(long index, out int meta)
         {
             throw new NotImplementedException();
         }

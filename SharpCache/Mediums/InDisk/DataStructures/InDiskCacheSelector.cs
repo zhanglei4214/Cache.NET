@@ -163,6 +163,6 @@
         private IInDiskCacheManager CreateInDiskCache(InDiskCacheType type)
         {
             return new SingleInDiskCacheManager(type, this.CacheDirectory);
-        }        
+        }
     }
 }

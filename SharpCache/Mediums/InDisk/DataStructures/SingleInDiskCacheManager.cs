@@ -14,6 +14,8 @@
 
         private readonly InDiskIndexManager indexManager;
 
+        private readonly int itemSize;
+
         private FileStream stream;
 
         private object fileLock = new object();
@@ -24,9 +26,11 @@
 
         public SingleInDiskCacheManager(InDiskCacheType type, string dir)
         {
+            this.itemSize = (int)type;
+
             this.stream = this.CreateCacheFile(dir, type);
 
-            this.indexManager = new InDiskIndexManager((int)type);
+            this.indexManager = new InDiskIndexManager();
         }
 
         #endregion
@@ -46,9 +50,9 @@
         {
             Ensure.ArgumentNotNull(value, "value");
 
-            InDiskIndex index = this.indexManager.FindFree(key);
+            int index = this.indexManager.FindFree();
 
-            return this.WriteToFile(index.Offset, value, value.Length);
+            return this.WriteToFile(index * this.itemSize, value, value.Length);
         }
 
         #endregion
